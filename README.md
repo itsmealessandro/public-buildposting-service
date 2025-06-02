@@ -1,13 +1,4 @@
 # 📢 Public Billposting Booking System
-
-Final Project Assignment for the course  
-**Business Process Development**  
-Instructor: Prof. Massimo Tivoli  
-Email: massimo.tivoli@univaq.it  
-Acknowledgements: Dott. Gianluca Filippone (GSSI)
-
----
-
 ## 📝 Project Overview
 
 This application is a **public billposting booking system**, developed using the **Camunda BPM platform** embedded in a **Spring Boot** application. The system allows users to reserve billposting zones across multiple cities according to their preferences and budget.
@@ -206,3 +197,10 @@ java -jar posting-service.jar
 ## 🧑‍💻 Authors
 
 This project has been developed as part of the **Business Process Development** course at the University of L'Aquila.
+
+### Acknowledgements
+Final Project Assignment for the course  
+**Business Process Development**  
+Instructor: Prof. Massimo Tivoli  
+Acknowledgements: Dott. Gianluca Filippone (GSSI)
+
