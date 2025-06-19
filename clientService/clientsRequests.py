@@ -3,8 +3,8 @@ import random
 import uuid
 
 CITIES = ["Rome", "Milan", "Naples", "Florence"]
+USERNAMES = ["mariorossi", "sarabianchi", "johndoe"]
 FORMATS = ["A3", "A4", "Poster", "Billboard"]
-URL = "localhost:8091/api/poster-request"
 
 def generate_payload(username):
     selected_cities = random.sample(CITIES, k=random.randint(1, len(CITIES)))
@@ -18,10 +18,13 @@ def generate_payload(username):
 
 class BaseUser(HttpUser):
     wait_time = between(1, 3)
+    host = "http://localhost:8091"
+    abstract = True
 
     def post_and_print(self, username):
+        print(self.username)
         payload = generate_payload(username)
-        with self.client.post(URL, json=payload, catch_response=True) as response:
+        with self.client.post("/api/poster-request", json=payload, catch_response=True) as response:
             if response.status_code == 200:
                 try:
                     data = response.json()
@@ -38,16 +41,19 @@ class BaseUser(HttpUser):
                 response.failure("Bad status code")
 
 class UserTypeA(BaseUser):
+    username=USERNAMES[0]
     @task
     def send_request(self):
-        self.post_and_print("user_A_" + str(uuid.uuid4())[:8])
+        self.post_and_print(USERNAMES[0] + "_" + uuid.uuid4().hex[:8])
 
 class UserTypeB(BaseUser):
+    username=USERNAMES[1]
     @task
     def send_request(self):
-        self.post_and_print("user_B_" + str(uuid.uuid4())[:8])
+        self.post_and_print(USERNAMES[1] + "_" + uuid.uuid4().hex[:8])
 
 class UserTypeC(BaseUser):
+    username=USERNAMES[2]
     @task
     def send_request(self):
-        self.post_and_print("user_C_" + str(uuid.uuid4())[:8])
+        self.post_and_print(USERNAMES[2] + "_" + uuid.uuid4().hex[:8])
