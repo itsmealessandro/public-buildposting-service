@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+  id="Definitions_1"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  exporter="Camunda Modeler"
+  exporterVersion="5.0.0">
+  
+  <process id="BookingProcess" isExecutable="true">
+    
+    <startEvent id="StartEvent" name="BookingRequest">
+      <messageEventDefinition messageRef="startBookingMsg" />
+    </startEvent>
+
+    <sequenceFlow id="flow1" sourceRef="StartEvent" targetRef="GetUserTask" />
+    
+    <serviceTask id="GetUserTask" name="Get User Data" 
+                 camunda:delegateExpression="${getUserDataDelegate}" />
+                 
+    <sequenceFlow id="flow2" sourceRef="GetUserTask" targetRef="GetZonesTask" />
+    
+    <serviceTask id="GetZonesTask" name="Get Zones" 
+                 camunda:delegateExpression="${getZonesDelegate}" />
+                 
+    <sequenceFlow id="flow3" sourceRef="GetZonesTask" targetRef="SelectZonesTask" />
+    
+    <serviceTask id="SelectZonesTask" name="Select Zones" 
+                 camunda:delegateExpression="${selectZonesDelegate}" />
+                 
+    <sequenceFlow id="flow4" sourceRef="SelectZonesTask" targetRef="PostingServiceTask" />
+    
+    <serviceTask id="PostingServiceTask" name="Call Posting Service" 
+                 camunda:delegateExpression="${postingServiceDelegate}" />
+                 
+    <sequenceFlow id="flow5" sourceRef="PostingServiceTask" targetRef="WaitDecisionTask" />
+
+    <receiveTask id="WaitDecisionTask" name="Wait User Decision">
+      <messageEventDefinition messageRef="userDecisionMsg" />
+    </receiveTask>
+    
+    <sequenceFlow id="flow6" sourceRef="WaitDecisionTask" targetRef="DecisionGateway" />
+
+    <exclusiveGateway id="DecisionGateway" default="cancelFlow" />
+    
+    <sequenceFlow id="confirmFlow" sourceRef="DecisionGateway" targetRef="ConfirmTask">
+      <conditionExpression xsi:type="tFormalExpression">${decision == 'confirm'}</conditionExpression>
+    </sequenceFlow>
+                  
+    <sequenceFlow id="cancelFlow" sourceRef="DecisionGateway" targetRef="CancelTask" />
+    
+    <serviceTask id="ConfirmTask" name="Confirm Booking" 
+                 camunda:delegateExpression="${confirmBookingDelegate}" />
+                 
+    <sequenceFlow id="flow7" sourceRef="ConfirmTask" targetRef="PrintOrderTask" />
+    
+    <serviceTask id="PrintOrderTask" name="Print Order" 
+                 camunda:delegateExpression="${printOrderDelegate}" />
+                 
+    <sequenceFlow id="flow8" sourceRef="PrintOrderTask" targetRef="EndEvent" />
+    
+    <serviceTask id="CancelTask" name="Cancel Booking" 
+                 camunda:delegateExpression="${cancelBookingDelegate}" />
+                 
+    <sequenceFlow id="flow9" sourceRef="CancelTask" targetRef="PrintCancelTask" />
+    
+    <serviceTask id="PrintCancelTask" name="Print Cancel Notice" 
+                 camunda:delegateExpression="${printCancelDelegate}" />
+                 
+    <sequenceFlow id="flow10" sourceRef="PrintCancelTask" targetRef="EndEvent" />
+    
+    <endEvent id="EndEvent" />
+  </process>
+  
+  <message id="startBookingMsg" name="startBooking" />
+  <message id="userDecisionMsg" name="userDecision" />
+</definitions>

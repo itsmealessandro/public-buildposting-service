@@ -1,0 +1,82 @@
+nohup: input ignorato
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+[32m :: Spring Boot :: [39m             [2m (v2.7.12)[0;39m
+
+[2m2025-06-20 16:10:46.096[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mi.d.u.b.s.p.PostingServiceApplication   [0;39m [2m:[0;39m Starting PostingServiceApplication v0.0.1-SNAPSHOT using Java 24.0.1 on hpelitebook840g5 with PID 11477 (/home/agostino/public-buildposting-service/servicies/posting-service.jar started by agostino in /home/agostino/public-buildposting-service/servicies)
+[2m2025-06-20 16:10:46.103[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mi.d.u.b.s.p.PostingServiceApplication   [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+[2m2025-06-20 16:10:47.534[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'postingServiceConfiguration' of type [it.disim.univaq.bpd.services.postingservice.configuration.PostingServiceConfiguration$$EnhancerBySpringCGLIB$$399de527] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2025-06-20 16:10:47.535[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$356c57b2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2025-06-20 16:10:47.645[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (jar:file:/home/agostino/public-buildposting-service/servicies/posting-service.jar!/BOOT-INF/lib/tomcat-embed-core-9.0.75.jar!/)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+[2m2025-06-20 16:10:48.451[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2025-06-20 16:10:48.469[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+[2m2025-06-20 16:10:48.470[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36morg.apache.catalina.core.StandardEngine [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/9.0.75]
+[2m2025-06-20 16:10:48.616[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+[2m2025-06-20 16:10:48.616[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 2331 ms
+[2m2025-06-20 16:10:49.417[0;39m [33m WARN[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mConfigServletWebServerApplicationContext[0;39m [2m:[0;39m Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat server
+[2m2025-06-20 16:10:49.421[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Stopping service [Tomcat]
+[2m2025-06-20 16:10:49.434[0;39m [32m INFO[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mConditionEvaluationReportLoggingListener[0;39m [2m:[0;39m 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2m2025-06-20 16:10:49.454[0;39m [31mERROR[0;39m [35m11477[0;39m [2m---[0;39m [2m[           main][0;39m [36mo.s.boot.SpringApplication              [0;39m [2m:[0;39m Application run failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat server
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:181) ~[spring-context-5.3.27.jar!/:5.3.27]
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54) ~[spring-context-5.3.27.jar!/:5.3.27]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356) ~[spring-context-5.3.27.jar!/:5.3.27]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155) ~[spring-context-5.3.27.jar!/:5.3.27]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123) ~[spring-context-5.3.27.jar!/:5.3.27]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:937) ~[spring-context-5.3.27.jar!/:5.3.27]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586) ~[spring-context-5.3.27.jar!/:5.3.27]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at it.disim.univaq.bpd.services.postingservice.PostingServiceApplication.main(PostingServiceApplication.java:10) ~[classes!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[posting-service.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:108) ~[posting-service.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[posting-service.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[posting-service.jar:0.0.1-SNAPSHOT]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat server
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:229) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:43) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178) ~[spring-context-5.3.27.jar!/:5.3.27]
+	... 20 common frames omitted
+Caused by: java.lang.IllegalArgumentException: standardService.connector.startFailed
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:235) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:282) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:213) ~[spring-boot-2.7.12.jar!/:2.7.12]
+	... 22 common frames omitted
+Caused by: org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1039) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:232) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	... 24 common frames omitted
+Caused by: java.net.BindException: Indirizzo già in uso
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:511) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:335) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:297) ~[na:na]
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:276) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:231) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1302) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1388) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:663) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1037) ~[tomcat-embed-core-9.0.75.jar!/:na]
+	... 26 common frames omitted
+
