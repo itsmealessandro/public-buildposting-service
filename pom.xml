@@ -76,6 +76,12 @@
             <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
             <version>${camunda.spring.boot.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjdk.nashorn/nashorn-core -->
+<dependency>
+    <groupId>org.openjdk.nashorn</groupId>
+    <artifactId>nashorn-core</artifactId>
+    <version>15.6</version>
+</dependency>
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>

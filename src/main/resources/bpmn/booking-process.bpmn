@@ -1,83 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions 
-  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-  xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
-  xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
-  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
-  id="Definitions_1"
-  targetNamespace="http://bpmn.io/schema/bpmn"
-  exporter="Camunda Modeler"
-  exporterVersion="5.21.0">
-  
-  <process id="BusinessTravelProcess" name="Business Travel Process" isExecutable="true">
-
-    <!-- Start Event -->
-    <startEvent id="StartEvent" name="Travel Approval Request">
-      <messageEventDefinition messageRef="travelApprovalRequestMsg"/>
-    </startEvent>
-
-    <!-- ETS: Get Employee Travel Status -->
-    <sequenceFlow id="flow1" sourceRef="StartEvent" targetRef="InitETSRequestTask"/>
-    <serviceTask id="InitETSRequestTask" name="Init ETS Request" camunda:delegateExpression="${initETSDelegate}"/>
-    <sequenceFlow id="flow2" sourceRef="InitETSRequestTask" targetRef="CallETSServiceTask"/>
-    <serviceTask id="CallETSServiceTask" name="Call ETS Service" camunda:delegateExpression="${callETSDelegate}"/>
-
-    <!-- Initialize AA and DA in Parallel -->
-    <sequenceFlow id="flow3" sourceRef="CallETSServiceTask" targetRef="ParallelGatewaySplit"/>
-    <parallelGateway id="ParallelGatewaySplit"/>
-    
-    <!-- AA Branch -->
-    <sequenceFlow id="flow4" sourceRef="ParallelGatewaySplit" targetRef="InitAARequestTask"/>
-    <serviceTask id="InitAARequestTask" name="Init AA Request" camunda:delegateExpression="${initAADelegate}"/>
-    <sequenceFlow id="flow5" sourceRef="InitAARequestTask" targetRef="CallAAServiceTask"/>
-    <serviceTask id="CallAAServiceTask" name="Call AA Service" camunda:delegateExpression="${callAADelegate}"/>
-
-    <!-- DA Branch -->
-    <sequenceFlow id="flow6" sourceRef="ParallelGatewaySplit" targetRef="InitDARequestTask"/>
-    <serviceTask id="InitDARequestTask" name="Init DA Request" camunda:delegateExpression="${initDADelegate}"/>
-    <sequenceFlow id="flow7" sourceRef="InitDARequestTask" targetRef="CallDAServiceTask"/>
-    <serviceTask id="CallDAServiceTask" name="Call DA Service" camunda:delegateExpression="${callDADelegate}"/>
-
-    <!-- Join Parallel Gateway -->
-    <sequenceFlow id="flow8" sourceRef="CallAAServiceTask" targetRef="ParallelGatewayJoin"/>
-    <sequenceFlow id="flow9" sourceRef="CallDAServiceTask" targetRef="ParallelGatewayJoin"/>
-    <parallelGateway id="ParallelGatewayJoin"/>
-
-    <!-- Wait for User Decision -->
-    <sequenceFlow id="flow10" sourceRef="ParallelGatewayJoin" targetRef="WaitUserDecisionTask"/>
-    <receiveTask id="WaitUserDecisionTask" name="Wait User Decision">
-      <messageEventDefinition messageRef="userDecisionMsg"/>
-    </receiveTask>
-
-    <!-- Decision Gateway -->
-    <sequenceFlow id="flow11" sourceRef="WaitUserDecisionTask" targetRef="DecisionGateway"/>
-    <exclusiveGateway id="DecisionGateway" default="flowCancel"/>
-
-    <!-- Confirm Path -->
-    <sequenceFlow id="flowConfirm" sourceRef="DecisionGateway" targetRef="ConfirmBookingTask">
-      <conditionExpression xsi:type="tFormalExpression">${decision == 'confirm'}</conditionExpression>
-    </sequenceFlow>
-    <serviceTask id="ConfirmBookingTask" name="Confirm Booking" camunda:delegateExpression="${confirmBookingDelegate}"/>
-    <sequenceFlow id="flow13" sourceRef="ConfirmBookingTask" targetRef="PrintOrderTask"/>
-    <serviceTask id="PrintOrderTask" name="Print Order" camunda:delegateExpression="${printOrderDelegate}"/>
-    <sequenceFlow id="flow14" sourceRef="PrintOrderTask" targetRef="EndEvent"/>
-
-    <!-- Cancel Path -->
-    <sequenceFlow id="flowCancel" sourceRef="DecisionGateway" targetRef="CancelBookingTask"/>
-    <serviceTask id="CancelBookingTask" name="Cancel Booking" camunda:delegateExpression="${cancelBookingDelegate}"/>
-    <sequenceFlow id="flow16" sourceRef="CancelBookingTask" targetRef="PrintCancelTask"/>
-    <serviceTask id="PrintCancelTask" name="Print Cancel Notice" camunda:delegateExpression="${printCancelDelegate}"/>
-    <sequenceFlow id="flow17" sourceRef="PrintCancelTask" targetRef="EndEvent"/>
-
-    <!-- End -->
-    <endEvent id="EndEvent" name="End"/>
-
-  </process>
-
-  <!-- Messages -->
-  <message id="travelApprovalRequestMsg" name="TravelApprovalRequest"/>
-  <message id="userDecisionMsg" name="UserDecision"/>
-
-</definitions>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0rpbtis" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="MyAutoStartedProcess" name="Auto Started Process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_00i7a1b</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_00i7a1b" sourceRef="StartEvent_1" targetRef="Print" />
+    <bpmn:scriptTask id="Print" name="Print" scriptFormat="javascript">
+      <bpmn:incoming>Flow_00i7a1b</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w2e957</bpmn:outgoing>
+      <bpmn:script>var system = java.lang.System;
+system.out.println("Hi, I am a process started at the deployment!");</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:endEvent id="Event_17fzub6">
+      <bpmn:incoming>Flow_0w2e957</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0w2e957" sourceRef="Print" targetRef="Event_17fzub6" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="AutoStartedProcess">
+      <bpmndi:BPMNEdge id="Flow_00i7a1b_di" bpmnElement="Flow_00i7a1b">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w2e957_di" bpmnElement="Flow_0w2e957">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="432" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0t86dhu_di" bpmnElement="Print">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17fzub6_di" bpmnElement="Event_17fzub6">
+        <dc:Bounds x="432" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
