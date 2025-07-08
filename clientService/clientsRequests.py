@@ -18,13 +18,14 @@ def generate_payload(username):
 
 class BaseUser(HttpUser):
     wait_time = between(1, 3)
-    host = "http://localhost:8091"
+    host = "http://localhost:8080"
     abstract = True
+    path = "/poster-request"
 
     def post_and_print(self, username):
         print(self.username)
         payload = generate_payload(username)
-        with self.client.post("/api/poster-request", json=payload, catch_response=True) as response:
+        with self.client.post(self.path, json=payload, catch_response=True) as response:
             if response.status_code == 200:
                 try:
                     data = response.json()

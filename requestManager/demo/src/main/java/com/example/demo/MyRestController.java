@@ -3,7 +3,11 @@ package com.example.demo;
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.model.ClientRequest;
 
 @RestController
 public class MyRestController {
@@ -30,5 +34,12 @@ public class MyRestController {
     System.out.println("Message 'message-1' correlated. BPMN process started.");
     // You can add logic here to respond to the HTTP request,
     // for example, by sending a success message.
+  }
+
+  @PostMapping("poster-request")
+  public void handleRequest(@RequestBody ClientRequest clientRequest) {
+    System.out.println("###################### request received #############");
+    System.out.println(clientRequest);
+
   }
 }
