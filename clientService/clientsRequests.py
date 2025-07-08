@@ -29,9 +29,9 @@ class BaseUser(HttpUser):
             if response.status_code == 200:
                 try:
                     data = response.json()
-                    selected_zones = data.get("selected_zones")
-                    total_price = data.get("total_price")
-                    request_id = data.get("request_id")
+                    selected_zones = data.get("selectedZones")
+                    total_price = data.get("totalPrice")
+                    request_id = data.get("requestId")
                     print(f"[{username}] Zones: {selected_zones}, Total: {total_price}, ID: {request_id}")
                     response.success()
                 except Exception as e:
