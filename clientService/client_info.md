@@ -16,3 +16,29 @@ POST request about the service.
 ```bash
 locust -f locustfile.py --host http://localhost:8091
 ```
+
+### Flow example
+
+This is an example of request sent by the locust client
+
+``` JSON
+{
+  "username": "mariorossi_a3b4c5d6",
+  "cities": ["Rome", "Milan"],
+  "max_prices": {
+    "Rome": 350,
+    "Milan": 280
+  },
+  "poster_format": "A4"
+}
+```
+
+The expected response is:
+
+```JSON
+{
+  "selectedZones": ["Rome_Center", "Milan_North"],
+  "totalPrice": 630.50,
+  "requestId": "a1b2c3d4e5f6g7h8i9j0"
+}
+```
