@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd .
 # Assicura che i processi figli vengano terminati al termine dello script
 cleanup() {
   echo "Shutting down services..."
