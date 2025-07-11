@@ -18,7 +18,7 @@ def generate_payload(username):
 
 class BaseUser(HttpUser):
     wait_time = between(1, 3)
-    host = "http://localhost:8080"
+    host = "http://localhost:8081"
     abstract = True
     path = "/poster-request"
 
