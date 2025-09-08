@@ -17,10 +17,21 @@ def generate_payload(username):
     }
 
 class BaseUser(HttpUser):
+    """
+    Simula utenti che inviano richieste HTTP POST all'endpoint "/api/booking/request".
+    
+    Ogni utente:
+    - Genera un username unico con suffisso casuale.
+    - Seleziona città casuali, prezzi massimi per ciascuna città e formato poster.
+    - Invia il payload come JSON al server e stampa il risultato o eventuali errori.
+    
+    Sono definiti tre tipi di utenti (UserTypeA, UserTypeB, UserTypeC) con nomi diversi.
+    La frequenza delle richieste è casuale tra 1 e 3 secondi.
+    """
     wait_time = between(1, 3)
-    host = "http://localhost:8081"
+    host = "http://localhost:8080"
     abstract = True
-    path = "/poster-request"
+    path = "/api/booking/request"
 
     def post_and_print(self, username):
         print(self.username)
