@@ -3,8 +3,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.univaq.disim.bpd</groupId>
-  <artifactId>camundaengineapp1</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>camundaEngineAPI</artifactId>
+  <version>1.0.0</version>
   <name>camundaengineapp1</name>
 
   <properties>
