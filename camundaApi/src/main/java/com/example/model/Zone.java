@@ -1,40 +1,41 @@
 package com.example.model;
 
 public class Zone {
-    private int id;
-    private String name;
-    private String city;
-    private double price;
-    
-    public int getId() {
-        return id;
-    }
+  private int id;
+  private String name;
+  private String city;
+  private double price;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public double getPrice() {
-        return price;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
 }
