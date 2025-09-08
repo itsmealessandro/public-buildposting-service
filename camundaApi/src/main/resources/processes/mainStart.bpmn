@@ -21,7 +21,6 @@
     <bpmn:extensionElements />
     <bpmn:parallelGateway id="Gateway_parallel0" name="gateway">
       <bpmn:incoming>Flow_0ftv8bg</bpmn:incoming>
-      <bpmn:outgoing>Flow_0e0csc0</bpmn:outgoing>
       <bpmn:outgoing>Flow_1udpmuu</bpmn:outgoing>
       <bpmn:outgoing>Flow_1355dzx</bpmn:outgoing>
     </bpmn:parallelGateway>
@@ -42,10 +41,6 @@
     <bpmn:sequenceFlow id="Flow_131otxq" sourceRef="selectzones" targetRef="Gateway_join0" />
     <bpmn:serviceTask id="printDataUserDelegate" name="PrintData" camunda:class="com.example.service.delegate.PrintData">
       <bpmn:incoming>Flow_1680t7t</bpmn:incoming>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0e0csc0" sourceRef="Gateway_parallel0" targetRef="Activity_19mhmax" />
-    <bpmn:serviceTask id="Activity_19mhmax" name="PrintData" camunda:class="com.example.service.delegate.PrintData">
-      <bpmn:incoming>Flow_0e0csc0</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="userDataID" name="Retrieve user data info">
       <bpmn:extensionElements>
@@ -90,9 +85,14 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1355dzx</bpmn:incoming>
       <bpmn:outgoing>Flow_0r6igyt</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jskf4k</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0r6igyt" sourceRef="Getzoneslist" targetRef="selectzones" />
     <bpmn:sequenceFlow id="Flow_1355dzx" sourceRef="Gateway_parallel0" targetRef="Getzoneslist" />
+    <bpmn:serviceTask id="Activity_19mhmax" name="PrintData" camunda:class="com.example.service.delegate.PrintZones">
+      <bpmn:incoming>Flow_0jskf4k</bpmn:incoming>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0jskf4k" sourceRef="Getzoneslist" targetRef="Activity_19mhmax" />
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -135,10 +135,6 @@
         <dc:Bounds x="820" y="690" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0l4uhbe" bpmnElement="Activity_19mhmax">
-        <dc:Bounds x="560" y="533" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06j4v6c_di" bpmnElement="userDataID">
         <dc:Bounds x="560" y="640" width="100" height="80" />
         <bpmndi:BPMNLabel />
@@ -151,6 +147,10 @@
         <dc:Bounds x="560" y="440" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0l4uhbe" bpmnElement="Activity_19mhmax">
+        <dc:Bounds x="670" y="540" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0ftv8bg_di" bpmnElement="Flow_0ftv8bg">
         <di:waypoint x="248" y="570" />
         <di:waypoint x="475" y="570" />
@@ -158,12 +158,6 @@
       <bpmndi:BPMNEdge id="Flow_131otxq_di" bpmnElement="Flow_131otxq">
         <di:waypoint x="810" y="480" />
         <di:waypoint x="875" y="480" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0e0csc0_di" bpmnElement="Flow_0e0csc0">
-        <di:waypoint x="525" y="570" />
-        <di:waypoint x="543" y="570" />
-        <di:waypoint x="543" y="573" />
-        <di:waypoint x="560" y="573" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1680t7t_di" bpmnElement="Flow_1680t7t">
         <di:waypoint x="660" y="680" />
@@ -193,6 +187,12 @@
         <di:waypoint x="500" y="545" />
         <di:waypoint x="500" y="480" />
         <di:waypoint x="560" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jskf4k_di" bpmnElement="Flow_0jskf4k">
+        <di:waypoint x="610" y="520" />
+        <di:waypoint x="610" y="530" />
+        <di:waypoint x="680" y="530" />
+        <di:waypoint x="680" y="540" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1030" height="90" />

@@ -6,6 +6,9 @@ public class Zone {
   private String city;
   private double price;
 
+  public Zone() {
+  }
+
   public int getId() {
     return id;
   }
@@ -36,6 +39,11 @@ public class Zone {
 
   public void setPrice(double price) {
     this.price = price;
+  }
+
+  @Override
+  public String toString() {
+    return "Zone [id=" + id + ", name=" + name + ", city=" + city + ", price=" + price + "]";
   }
 
 }

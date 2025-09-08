@@ -25,16 +25,21 @@ public class BookingController {
     this.runtimeService = runtimeService;
   }
 
+  /*
+   * This Method get the user request and puts all the data in execution
+   * variables.
+   */
   @PostMapping("/api/booking/request")
   public ResponseEntity<?> startBooking(@RequestBody BookingRequest request) {
     System.out.println("########################################################");
     System.out.println("########################################################");
     System.out.println("REQUEST RECEIVED");
+    System.out.println(request.toString());
     System.out.println("########################################################");
     System.out.println("########################################################");
     Map<String, Object> variables = new HashMap<>();
     variables.put("username", request.getUsername());
-    variables.put("cities", request.getCities());
+    variables.put("client_cities", request.getCities());
     variables.put("format", request.getFormat());
     variables.put("maxPrices", request.getMaxPrices());
 
