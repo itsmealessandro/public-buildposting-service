@@ -83,6 +83,7 @@
           <camunda:inputOutput>
             <camunda:inputParameter name="url">http://localhost:9090/zones/a</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:outputParameter name="zones">${response}</camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>

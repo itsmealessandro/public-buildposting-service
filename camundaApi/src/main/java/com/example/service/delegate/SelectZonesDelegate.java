@@ -17,9 +17,10 @@ public class SelectZonesDelegate implements JavaDelegate {
   @Override
   public void execute(DelegateExecution execution) {
     System.out.println("SELCTING ZONES...");
+    System.out.println();
     List<String> cities = (List<String>) execution.getVariable("cities");
     Map<String, Double> maxPrices = (Map<String, Double>) execution.getVariable("maxPrices");
-    List<Zone> allZones = (List<Zone>) execution.getVariable("allZones");
+    List<Zone> allZones = (List<Zone>) execution.getVariable("zones");
 
     Map<String, List<Zone>> selectedZones = new HashMap<>();
     double totalPrice = 0.0;
