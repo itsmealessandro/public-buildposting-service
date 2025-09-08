@@ -8,7 +8,7 @@
     <bpmn:participant id="Participant_0j40oos" name="user-WS" processRef="Process_132boto" />
     <bpmn:participant id="Participant_1gsuhvu" name="ZONES-WS" processRef="Process_05dkfd0" />
     <bpmn:participant id="Participant_0znlog7" name="POSTING-WS" processRef="Process_04k4fp4" />
-    <bpmn:messageFlow id="Flow_0r55hbz" sourceRef="Participant_0oaetem" targetRef="startID" />
+    <bpmn:messageFlow id="Flow_0r55hbz" sourceRef="Participant_0oaetem" targetRef="requestReceivedID" />
     <bpmn:messageFlow id="Flow_1yim0z8" sourceRef="Activity_0h7pqh2" targetRef="Participant_0oaetem" />
     <bpmn:messageFlow id="Flow_1ilekpa" sourceRef="userDataID" targetRef="Participant_0j40oos" />
     <bpmn:messageFlow id="Flow_1r24u7i" sourceRef="Participant_0j40oos" targetRef="userDataID" />
@@ -26,7 +26,7 @@
     </bpmn:scriptTask>
     <bpmn:scriptTask id="Activity_1d934zg" name="print" scriptFormat="javascript">
       <bpmn:incoming>Flow_1hu1hia</bpmn:incoming>
-      <bpmn:script>console.log("request received")</bpmn:script>
+      <bpmn:script>java.lang.System.out.println("request received");</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:parallelGateway id="Gateway_parallel0">
       <bpmn:incoming>Flow_1j2jf7l</bpmn:incoming>
@@ -61,7 +61,7 @@
       <bpmn:outgoing>Flow_1mymhox</bpmn:outgoing>
       <bpmn:outgoing>Flow_0r6igyt</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:startEvent id="startID" name="hi">
+    <bpmn:startEvent id="requestReceivedID" name="requestReceived">
       <bpmn:outgoing>Flow_0ftv8bg</bpmn:outgoing>
       <bpmn:outgoing>Flow_1hu1hia</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1solnja" messageRef="Message_1u8rev1" />
@@ -105,9 +105,9 @@
       <bpmn:incoming>Flow_0ekpf7s</bpmn:incoming>
       <bpmn:script>java.lang.System.out.println("response");</bpmn:script>
     </bpmn:scriptTask>
-    <bpmn:sequenceFlow id="Flow_0ftv8bg" sourceRef="startID" targetRef="Activity_1mpr9ms" />
+    <bpmn:sequenceFlow id="Flow_0ftv8bg" sourceRef="requestReceivedID" targetRef="Activity_1mpr9ms" />
     <bpmn:sequenceFlow id="Flow_1j2jf7l" sourceRef="Activity_1mpr9ms" targetRef="Gateway_parallel0" />
-    <bpmn:sequenceFlow id="Flow_1hu1hia" sourceRef="startID" targetRef="Activity_1d934zg" />
+    <bpmn:sequenceFlow id="Flow_1hu1hia" sourceRef="requestReceivedID" targetRef="Activity_1d934zg" />
     <bpmn:sequenceFlow id="Flow_1udpmuu" sourceRef="Gateway_parallel0" targetRef="userDataID" />
     <bpmn:sequenceFlow id="Flow_1355dzx" sourceRef="Gateway_parallel0" targetRef="Getzoneslist" />
     <bpmn:sequenceFlow id="Flow_0kc2oc9" sourceRef="userDataID" targetRef="print2ID" />
@@ -154,10 +154,10 @@
         <dc:Bounds x="560" y="440" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0lp93rq_di" bpmnElement="startID">
+      <bpmndi:BPMNShape id="Event_0lp93rq_di" bpmnElement="requestReceivedID">
         <dc:Bounds x="212" y="552" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="226" y="595" width="9" height="14" />
+          <dc:Bounds x="189" y="595" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_157nfh2_di" bpmnElement="Activity_1thgpo4">
