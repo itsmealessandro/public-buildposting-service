@@ -20,11 +20,12 @@
   <bpmn:process id="mainProcessID" name="mainProcess" isExecutable="true" camunda:historyTimeToLive="1">
     <bpmn:extensionElements />
     <bpmn:parallelGateway id="Gateway_parallel0" name="gateway">
+      <bpmn:incoming>Flow_1lwnvwi</bpmn:incoming>
       <bpmn:outgoing>Flow_1udpmuu</bpmn:outgoing>
       <bpmn:outgoing>Flow_1355dzx</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:startEvent id="requestReceivedID" name="requestReceived">
-      <bpmn:outgoing>Flow_10crceb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1lwnvwi</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1solnja" messageRef="Message_1u8rev1" />
     </bpmn:startEvent>
     <bpmn:serviceTask id="selectzones" name="select zones" camunda:class="com.example.service.delegate.SelectZonesDelegate">
@@ -44,7 +45,7 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9080/user/mariorossi</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:9080/user/${username}</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
@@ -91,11 +92,7 @@
       <bpmn:incoming>Flow_0jskf4k</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0jskf4k" sourceRef="Getzoneslist" targetRef="Activity_19mhmax" />
-    <bpmn:sequenceFlow id="Flow_10crceb" sourceRef="requestReceivedID" targetRef="Event_1gwz5jo" />
-    <bpmn:intermediateCatchEvent id="Event_1gwz5jo" name="wait">
-      <bpmn:incoming>Flow_10crceb</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0bhea08" messageRef="Message_1bdvnss" />
-    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1lwnvwi" sourceRef="requestReceivedID" targetRef="Gateway_parallel0" />
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -116,7 +113,7 @@
       <bpmndi:BPMNShape id="Gateway_00bluz9_di" bpmnElement="Gateway_parallel0">
         <dc:Bounds x="475" y="545" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="480" y="602" width="42" height="14" />
+          <dc:Bounds x="535" y="563" width="42" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0lp93rq_di" bpmnElement="requestReceivedID">
@@ -153,12 +150,6 @@
       <bpmndi:BPMNShape id="BPMNShape_0l4uhbe" bpmnElement="Activity_19mhmax">
         <dc:Bounds x="670" y="540" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0h3v9y0_di" bpmnElement="Event_1gwz5jo">
-        <dc:Bounds x="402" y="632" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="411" y="675" width="19" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_131otxq_di" bpmnElement="Flow_131otxq">
         <di:waypoint x="810" y="480" />
@@ -199,11 +190,9 @@
         <di:waypoint x="680" y="530" />
         <di:waypoint x="680" y="540" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10crceb_di" bpmnElement="Flow_10crceb">
+      <bpmndi:BPMNEdge id="Flow_1lwnvwi_di" bpmnElement="Flow_1lwnvwi">
         <di:waypoint x="248" y="570" />
-        <di:waypoint x="370" y="570" />
-        <di:waypoint x="370" y="650" />
-        <di:waypoint x="402" y="650" />
+        <di:waypoint x="475" y="570" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1030" height="90" />
