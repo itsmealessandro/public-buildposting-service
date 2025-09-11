@@ -28,10 +28,6 @@
       <bpmn:outgoing>Flow_1lwnvwi</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1solnja" messageRef="Message_1u8rev1" />
     </bpmn:startEvent>
-    <bpmn:serviceTask id="selectzones" name="select zones" camunda:class="com.example.service.delegate.SelectZonesDelegate">
-      <bpmn:incoming>Flow_0r6igyt</bpmn:incoming>
-      <bpmn:outgoing>Flow_131otxq</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:parallelGateway id="Gateway_join0">
       <bpmn:incoming>Flow_131otxq</bpmn:incoming>
       <bpmn:incoming>Flow_10zreee</bpmn:incoming>
@@ -93,6 +89,10 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0jskf4k" sourceRef="Getzoneslist" targetRef="Activity_19mhmax" />
     <bpmn:sequenceFlow id="Flow_1lwnvwi" sourceRef="requestReceivedID" targetRef="Gateway_parallel0" />
+    <bpmn:serviceTask id="selectzones" name="select zones" camunda:class="com.example.service.delegate.SelectZonesDelegate">
+      <bpmn:incoming>Flow_0r6igyt</bpmn:incoming>
+      <bpmn:outgoing>Flow_131otxq</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -122,9 +122,6 @@
           <dc:Bounds x="189" y="595" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_157nfh2_di" bpmnElement="selectzones">
-        <dc:Bounds x="710" y="440" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0acvefa_di" bpmnElement="Gateway_join0">
         <dc:Bounds x="875" y="455" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -150,6 +147,9 @@
       <bpmndi:BPMNShape id="BPMNShape_0l4uhbe" bpmnElement="Activity_19mhmax">
         <dc:Bounds x="670" y="540" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_157nfh2_di" bpmnElement="selectzones">
+        <dc:Bounds x="710" y="440" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_131otxq_di" bpmnElement="Flow_131otxq">
         <di:waypoint x="810" y="480" />

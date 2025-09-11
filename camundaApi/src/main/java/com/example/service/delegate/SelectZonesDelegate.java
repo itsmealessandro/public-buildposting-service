@@ -52,8 +52,10 @@ public class SelectZonesDelegate implements JavaDelegate {
 
     // Selezione algoritmo
     if ("eco".equalsIgnoreCase(algorithm)) {
+      System.out.println("eco selected");
       selectedZones = selectZonesReverse(zones, cities, maxPrices);
     } else {
+      System.out.println("greedy selected");
       selectedZones = selectZonesGreedy(zones, cities, maxPrices);
     }
 
@@ -62,7 +64,18 @@ public class SelectZonesDelegate implements JavaDelegate {
         .mapToDouble(Zone::getPrice)
         .sum();
 
-    execution.setVariable("selectedZones", selectedZones);
+    System.out.println("Selection Result:");
+    System.out.println(selectedZones);
+    System.out.println(selectedZones);
+    ObjectMapper mapperZone = new ObjectMapper();
+    String selectedZonesJson = "";
+    try {
+      selectedZonesJson = mapperZone.writeValueAsString(selectedZones);
+    } catch (JsonProcessingException e) {
+      System.out.println("JSON OPSS");
+      e.printStackTrace();
+    }
+    execution.setVariable("selectedZones", selectedZonesJson);
     execution.setVariable("totalPrice", totalPrice);
   }
 

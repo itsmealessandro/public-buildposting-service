@@ -34,33 +34,30 @@ public class BookingController {
    * variables.
    */
   @PostMapping("/api/booking/request")
-  public ResponseEntity<?> startBooking(
-      @RequestParam String username,
-      @RequestParam List<String> cities,
-      @RequestParam List<Double> maxPrices,
-      @RequestParam String format,
-      @RequestParam String algorithm) {
+  public ResponseEntity<?> startBooking(@RequestBody BookingRequest request) {
     System.out.println("########################################################");
     System.out.println("########################################################");
     System.out.println("REQUEST RECEIVED");
     System.out.println("REQUEST RECEIVED:");
-    System.out.println("Username: " + username);
-    System.out.println("Cities: " + cities);
-    System.out.println("MaxPrices: " + maxPrices);
-    System.out.println("Format: " + format);
-    System.out.println("Algorithm: " + algorithm);
+    System.out.println("Username: " + request.getUsername());
+    System.out.println("Cities: " + request.getCities());
+    System.out.println("MaxPrices: " + request.getMaxPrices());
+    System.out.println("Format: " + request.getFormat());
+    System.out.println("Algorithm: " + request.getAlgorithm());
     System.out.println("########################################################");
     System.out.println("########################################################");
-    Map<String, Object> variables = new HashMap<>();
-    variables.put("username", username);
-    variables.put("client_cities", cities);
-    variables.put("format", format);
-    variables.put("maxPrices", maxPrices);
-    variables.put("algorithm", algorithm);
 
-    // ProcessInstance instance =
-    // runtimeService.startProcessInstanceByMessage("client_request", variables);
-    ProcessInstance instance = runtimeService.startProcessInstanceByMessage("banana", variables);
+    // Inserimento variabili nel processo Camunda
+    Map<String, Object> variables = new HashMap<>();
+    variables.put("username", request.getUsername());
+    variables.put("client_cities", request.getCities());
+    variables.put("format", request.getFormat());
+    variables.put("maxPrices", request.getMaxPrices());
+    variables.put("algorithm", request.getAlgorithm());
+
+    // Avvio processo
+    ProcessInstance instance = runtimeService.startProcessInstanceByMessage("client_request", variables);
+
     // alternativa con businessKey
     // ProcessInstance instance =
     // runtimeService.startProcessInstanceByMessage(messageName, businessKey,
@@ -93,18 +90,16 @@ public class BookingController {
     // .correlate();
 
     // Correlare il messaggio al processo in attesa
-    runtimeService.createMessageCorrelation("banana")
+    runtimeService.createMessageCorrelation("client_request")
         .correlate();
 
     return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));
   }
 
-  // GUI controller
   @GetMapping("/")
   public String home(Model model) {
-    model.addAttribute("title", "Benvenuto!");
-    model.addAttribute("message", "Questa è una pagina con TailwindCSS!");
-    return "home";
+    model.addAttribute("bookingRequest", new BookingRequest());
+    return "home"; // nome del template Thymeleaf
   }
 
 }
