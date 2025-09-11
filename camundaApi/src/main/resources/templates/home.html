@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title}">Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-lg rounded-2xl p-8 max-w-lg w-full">
+    <h1 class="text-3xl font-bold text-blue-600 mb-6" th:text="${title}">Titolo</h1>
+    <p class="text-gray-700 mb-6" th:text="${message}">Messaggio</p>
+
+    <!-- Form inviato al controller con @RequestParam -->
+    <form action="/api/booking/request" method="post" class="space-y-4">
+
+      <!-- Username -->
+      <div>
+        <label class="block text-left font-semibold mb-1">Username</label>
+        <input type="text" name="username" class="w-full border rounded-lg p-2" required>
+      </div>
+
+      <!-- Cities e Max Prices -->
+      <div id="cities-section">
+        <label class="block text-left font-semibold mb-1">Cities & Max Prices</label>
+        <div class="flex gap-2 mb-2">
+          <input type="text" name="cities" placeholder="City" class="flex-1 border rounded-lg p-2" required>
+          <input type="number" name="maxPrices" placeholder="Max Price" step="0.01" class="w-28 border rounded-lg p-2"
+            required>
+        </div>
+      </div>
+      <button type="button" onclick="addCity()" class="text-sm text-blue-600 hover:underline">
+        + Add another city
+      </button>
+
+      <!-- Poster Format -->
+      <div>
+        <label class="block text-left font-semibold mb-1">Poster Format</label>
+        <select name="format" class="w-full border rounded-lg p-2" required>
+          <option value="A3">A3</option>
+          <option value="A4">A4</option>
+          <option value="Digital">Digital</option>
+        </select>
+      </div>
+
+      <!-- Algorithm -->
+      <div>
+        <label class="block text-left font-semibold mb-1">Algorithm</label>
+        <div class="flex gap-4">
+          <label><input type="radio" name="algorithm" value="greedy" required> Greedy</label>
+          <label><input type="radio" name="algorithm" value="eco"> Eco</label>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl">
+        Submit Request
+      </button>
+    </form>
+  </div>
+
+  <script>
+    // Funzione per aggiungere altre città dinamicamente
+    function addCity() {
+      const section = document.getElementById("cities-section");
+      const div = document.createElement("div");
+      div.className = "flex gap-2 mb-2";
+      div.innerHTML = `
+                <input type="text" name="cities" placeholder="City" class="flex-1 border rounded-lg p-2" required>
+                <input type="number" name="maxPrices" placeholder="Max Price" step="0.01" class="w-28 border rounded-lg p-2" required>
+            `;
+      section.appendChild(div);
+    }
+  </script>
+</body>
+
+</html>

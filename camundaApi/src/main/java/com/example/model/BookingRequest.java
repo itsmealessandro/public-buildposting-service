@@ -8,6 +8,15 @@ public class BookingRequest {
   private List<String> cities;
   private String format;
   private Map<String, Double> maxPrices;
+  private String algorithm;
+
+  public String getAlgorithm() {
+    return algorithm;
+  }
+
+  public void setAlgorithm(String algorithm) {
+    this.algorithm = algorithm;
+  }
 
   public String getUsername() {
     return username;
@@ -44,6 +53,9 @@ public class BookingRequest {
   @Override
   public String toString() {
     return "BookingRequest [username=" + username + ", cities=" + cities + ", format=" + format + ", maxPrices="
-        + maxPrices + "]";
+        + maxPrices + ", algorithm=" + algorithm + ", getAlgorithm()=" + getAlgorithm() + ", getUsername()="
+        + getUsername() + ", getCities()=" + getCities() + ", getFormat()=" + getFormat() + ", getMaxPrices()="
+        + getMaxPrices() + "]";
   }
+
 }
