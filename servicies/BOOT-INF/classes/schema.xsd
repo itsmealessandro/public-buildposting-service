@@ -1,0 +1,79 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://disim.univaq.it/services/postingservice"
+           targetNamespace="http://disim.univaq.it/services/postingservice" elementFormDefault="qualified">
+
+    <xs:element name="availabilityRequest">
+        <xs:complexType>
+             <xs:sequence>
+                <xs:element name="applicant" type="tns:Applicant"/>
+                <xs:element name="posting" type="tns:Posting"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+	<xs:element name="availabilityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="requestId" type="xs:string"/>
+                <xs:element name="available" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+	<xs:element name="confirmationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="requestId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+	<xs:element name="confirmationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bill" type="tns:BillData"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+	<xs:element name="cancelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="requestId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+	<xs:complexType name="Applicant">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="surname" type="xs:string"/>
+            <xs:element name="taxCode" type="xs:string"/>
+            <xs:element name="address" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="zip" type="xs:int"/>
+            <xs:element name="email" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Posting">
+        <xs:sequence>
+            <xs:element name="posterFormat" type="xs:string"/>
+            <xs:element name="zone" type="tns:Zone" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+	<xs:complexType name="Zone">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+	<xs:complexType name="BillData">
+        <xs:sequence>
+            <xs:element name="accountHolder" type="xs:string"/>
+            <xs:element name="invoiceNumber" type="xs:string"/>
+            <xs:element name="amountDue" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

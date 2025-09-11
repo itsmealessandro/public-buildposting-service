@@ -23,6 +23,7 @@ public class SelectZonesDelegate implements JavaDelegate {
 
     System.out.println("SELECTING ZONES...");
 
+    // this execution variable came from zone WS camunda connector
     String zonesJson = (String) execution.getVariable("zones");
     System.out.println("zonesObj:" + zonesJson);
 
@@ -39,16 +40,19 @@ public class SelectZonesDelegate implements JavaDelegate {
     System.out.println("ZONES:");
     zones.forEach(System.out::println);
 
+    // this execution varaible come from The controller that handles the client
+    // request
     List<String> cities = (List<String>) execution.getVariable("client_cities");
     System.out.println("CITIES:");
     System.out.println(cities);
 
-    System.out.println("ZONES:");
-    System.out.println(zones);
-    System.out.println("CITIES:");
-    System.out.println(cities);
+    // this execution varaible come from The controller that handles the client
+    // request
     Map<String, Double> maxPrices = (Map<String, Double>) execution.getVariable("maxPrices");
 
+    // TODO: offer the client different algoritms to choose from.
+
+    // Selection Algoritms starts
     Map<String, List<Zone>> selectedZones = new HashMap<>();
     double totalPrice = 0.0;
 

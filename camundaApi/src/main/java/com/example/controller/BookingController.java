@@ -43,7 +43,19 @@ public class BookingController {
     variables.put("format", request.getFormat());
     variables.put("maxPrices", request.getMaxPrices());
 
-    ProcessInstance instance = runtimeService.startProcessInstanceByMessage("client_request", variables);
+    // ProcessInstance instance =
+    // runtimeService.startProcessInstanceByMessage("client_request", variables);
+    ProcessInstance instance = runtimeService.startProcessInstanceByMessage("banana", variables);
+    // alternativa con businessKey
+    // ProcessInstance instance =
+    // runtimeService.startProcessInstanceByMessage(messageName, businessKey,
+    // processVariables)
+
+    System.out.println("########################################################");
+    System.out.println("########################################################");
+    System.out.println("Returning...");
+    System.out.println("########################################################");
+    System.out.println("########################################################");
 
     // Recupera output dal processo
     String requestId = (String) runtimeService.getVariable(instance.getId(), "requestId");
@@ -60,9 +72,13 @@ public class BookingController {
 
   @PostMapping("/api/booking/decision")
   public ResponseEntity<DecisionResponse> handleDecision(@RequestBody DecisionRequest request) {
-    runtimeService.createMessageCorrelation("userDecision")
-        .processInstanceVariableEquals("requestId", request.getRequestId())
-        .setVariable("decision", request.getDecision())
+    // runtimeService.createMessageCorrelation("userDecision")
+    // .processInstanceVariableEquals("requestId", request.getRequestId())
+    // .setVariable("decision", request.getDecision())
+    // .correlate();
+
+    // Correlare il messaggio al processo in attesa
+    runtimeService.createMessageCorrelation("banana")
         .correlate();
 
     return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));

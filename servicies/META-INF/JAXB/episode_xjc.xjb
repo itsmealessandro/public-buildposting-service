@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.3.2 
+Vedere <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
+Generato il: 2023.05.25 alle 01:40:01 AM CEST 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://disim.univaq.it/services/postingservice">
+    <schemaBindings map="false">
+      <package name="it.univaq.disim.services.postingservice"/>
+    </schemaBindings>
+    <bindings scd="tns:availabilityRequest">
+      <class ref="it.univaq.disim.services.postingservice.AvailabilityRequest"/>
+    </bindings>
+    <bindings scd="~tns:Applicant">
+      <class ref="it.univaq.disim.services.postingservice.Applicant"/>
+    </bindings>
+    <bindings scd="~tns:Posting">
+      <class ref="it.univaq.disim.services.postingservice.Posting"/>
+    </bindings>
+    <bindings scd="tns:availabilityResponse">
+      <class ref="it.univaq.disim.services.postingservice.AvailabilityResponse"/>
+    </bindings>
+    <bindings scd="tns:confirmationRequest">
+      <class ref="it.univaq.disim.services.postingservice.ConfirmationRequest"/>
+    </bindings>
+    <bindings scd="tns:confirmationResponse">
+      <class ref="it.univaq.disim.services.postingservice.ConfirmationResponse"/>
+    </bindings>
+    <bindings scd="~tns:BillData">
+      <class ref="it.univaq.disim.services.postingservice.BillData"/>
+    </bindings>
+    <bindings scd="tns:cancelRequest">
+      <class ref="it.univaq.disim.services.postingservice.CancelRequest"/>
+    </bindings>
+    <bindings scd="~tns:Zone">
+      <class ref="it.univaq.disim.services.postingservice.Zone"/>
+    </bindings>
+  </bindings>
+</bindings>
+

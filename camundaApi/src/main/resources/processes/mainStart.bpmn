@@ -20,12 +20,11 @@
   <bpmn:process id="mainProcessID" name="mainProcess" isExecutable="true" camunda:historyTimeToLive="1">
     <bpmn:extensionElements />
     <bpmn:parallelGateway id="Gateway_parallel0" name="gateway">
-      <bpmn:incoming>Flow_0ftv8bg</bpmn:incoming>
       <bpmn:outgoing>Flow_1udpmuu</bpmn:outgoing>
       <bpmn:outgoing>Flow_1355dzx</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:startEvent id="requestReceivedID" name="requestReceived">
-      <bpmn:outgoing>Flow_0ftv8bg</bpmn:outgoing>
+      <bpmn:outgoing>Flow_10crceb</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1solnja" messageRef="Message_1u8rev1" />
     </bpmn:startEvent>
     <bpmn:serviceTask id="selectzones" name="select zones" camunda:class="com.example.service.delegate.SelectZonesDelegate">
@@ -37,7 +36,6 @@
       <bpmn:incoming>Flow_10zreee</bpmn:incoming>
       <bpmn:outgoing>Flow_0b0sun2</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:sequenceFlow id="Flow_0ftv8bg" sourceRef="requestReceivedID" targetRef="Gateway_parallel0" />
     <bpmn:sequenceFlow id="Flow_131otxq" sourceRef="selectzones" targetRef="Gateway_join0" />
     <bpmn:serviceTask id="printDataUserDelegate" name="PrintData" camunda:class="com.example.service.delegate.PrintData">
       <bpmn:incoming>Flow_1680t7t</bpmn:incoming>
@@ -93,6 +91,11 @@
       <bpmn:incoming>Flow_0jskf4k</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0jskf4k" sourceRef="Getzoneslist" targetRef="Activity_19mhmax" />
+    <bpmn:sequenceFlow id="Flow_10crceb" sourceRef="requestReceivedID" targetRef="Event_1gwz5jo" />
+    <bpmn:intermediateCatchEvent id="Event_1gwz5jo" name="wait">
+      <bpmn:incoming>Flow_10crceb</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0bhea08" messageRef="Message_1bdvnss" />
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -107,7 +110,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0hlqsz8">
       <bpmndi:BPMNShape id="Participant_07xbar8_di" bpmnElement="Participant_07xbar8" isHorizontal="true">
-        <dc:Bounds x="161" y="310" width="1029" height="530" />
+        <dc:Bounds x="161" y="310" width="1119" height="530" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_00bluz9_di" bpmnElement="Gateway_parallel0">
@@ -151,10 +154,12 @@
         <dc:Bounds x="670" y="540" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0ftv8bg_di" bpmnElement="Flow_0ftv8bg">
-        <di:waypoint x="248" y="570" />
-        <di:waypoint x="475" y="570" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0h3v9y0_di" bpmnElement="Event_1gwz5jo">
+        <dc:Bounds x="402" y="632" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="411" y="675" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_131otxq_di" bpmnElement="Flow_131otxq">
         <di:waypoint x="810" y="480" />
         <di:waypoint x="875" y="480" />
@@ -193,6 +198,12 @@
         <di:waypoint x="610" y="530" />
         <di:waypoint x="680" y="530" />
         <di:waypoint x="680" y="540" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10crceb_di" bpmnElement="Flow_10crceb">
+        <di:waypoint x="248" y="570" />
+        <di:waypoint x="370" y="570" />
+        <di:waypoint x="370" y="650" />
+        <di:waypoint x="402" y="650" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1030" height="90" />
