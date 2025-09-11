@@ -1,0 +1,78 @@
+[
+  {
+    "id": 1,
+    "name": "Center",
+    "city": "L'Aquila",
+    "price": 12.0
+  },{
+    "id": 2,
+    "name": "Pile",
+    "city": "L'Aquila",
+    "price": 9.2
+  },{
+    "id": 3,
+    "name": "Coppito",
+    "city": "L'Aquila",
+    "price": 10.4
+  },{
+    "id": 4,
+    "name": "Pettino",
+    "city": "L'Aquila",
+    "price": 9.9
+  },{
+    "id": 5,
+    "name": "Center",
+    "city": "Rome",
+    "price": 89.9
+  },{
+    "id": 6,
+    "name": "Flaminio",
+    "city": "L'Aquila",
+    "price": 19.9
+  },{
+    "id": 7,
+    "name": "EUR",
+    "city": "Rome",
+    "price": 38.0
+  },{
+    "id": 8,
+    "name": "Parioli",
+    "city": "Rome",
+    "price": 18.5
+  },{
+    "id": 9,
+    "name": "Trastevere",
+    "city": "Rome",
+    "price": 29.9
+  },{
+    "id": 10,
+    "name": "Testaccio",
+    "city": "Rome",
+    "price": 16.0
+  },{
+    "id": 11,
+    "name": "Duomo",
+    "city": "Milan",
+    "price": 119.9
+  },{
+    "id": 12,
+    "name": "Isola",
+    "city": "Milan",
+    "price": 75.0
+  },{
+    "id": 13,
+    "name": "Navigli",
+    "city": "Milan",
+    "price": 59.9
+  },{
+    "id": 14,
+    "name": "Porta Garibaldi",
+    "city": "Milan",
+    "price": 30.0
+  },{
+    "id": 15,
+    "name": "City Life",
+    "city": "Milan",
+    "price": 54.0
+  }
+]
