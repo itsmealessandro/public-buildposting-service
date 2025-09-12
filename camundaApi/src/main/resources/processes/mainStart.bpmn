@@ -95,9 +95,11 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9090/zones/b</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/zones/${format}</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
-            <camunda:outputParameter name="postingWSResult">${response}</camunda:outputParameter>
+            <camunda:outputParameter name="postingWSResult">
+              <camunda:script scriptFormat="freemarker" resource="deployment://availabilityRequest.ftl" />
+            </camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>soap-http-connector</camunda:connectorId>
         </camunda:connector>
