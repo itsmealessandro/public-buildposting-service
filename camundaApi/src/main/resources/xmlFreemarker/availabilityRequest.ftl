@@ -3,16 +3,16 @@
   <soapenv:Header />
   <soapenv:Body>
     <pos:availabilityRequest>
-      <!-- Dati dell'applicant -->
-      <pos:applicant>
-        <pos:name>${applicant.name}</pos:name>
-        <pos:surname>${applicant.surname}</pos:surname>
-        <pos:taxCode>${applicant.taxCode}</pos:taxCode>
-        <pos:address>${applicant.address}</pos:address>
-        <pos:city>${applicant.city}</pos:city>
-        <pos:zip>${applicant.zip}</pos:zip>
-        <pos:email>${applicant.email}</pos:email>
-      </pos:applicant>
+      <!-- Dati dell'user_info -->
+      <pos:user_info>
+        <pos:name>${user_info.name}</pos:name>
+        <pos:surname>${user_info.surname}</pos:surname>
+        <pos:taxCode>${user_info.taxCode}</pos:taxCode>
+        <pos:address>${user_info.address}</pos:address>
+        <pos:city>${user_info.city}</pos:city>
+        <pos:zip>${user_info.zip}</pos:zip>
+        <pos:email>${user_info.email}</pos:email>
+      </pos:user_info>
 
       <!-- Dati del posting -->
       <pos:posting>
