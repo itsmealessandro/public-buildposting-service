@@ -87,6 +87,7 @@
       <bpmn:incoming>Flow_1udpmuu</bpmn:incoming>
       <bpmn:outgoing>Flow_1680t7t</bpmn:outgoing>
       <bpmn:outgoing>Flow_10zreee</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1qjwp3o</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:parallelGateway id="Gateway_join0">
       <bpmn:incoming>Flow_131otxq</bpmn:incoming>
@@ -118,6 +119,15 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_1hh5h9x" messageRef="Message_1u8rev1" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_0dbqucv" sourceRef="Event_1nz8vhe" targetRef="postingservice" />
+    <bpmn:sequenceFlow id="Flow_1qjwp3o" sourceRef="userDataID" targetRef="User_Info_Conversion" />
+    <bpmn:serviceTask id="User_Info_Conversion" name="User_Info_Conversion" camunda:class="com.example.service.delegate.UserDataConversionDelegate">
+      <bpmn:incoming>Flow_1qjwp3o</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xxvuha</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1xxvuha" sourceRef="User_Info_Conversion" targetRef="Activity_1utsqwx" />
+    <bpmn:serviceTask id="Activity_1utsqwx" name="Print_User_Obj" camunda:class="com.example.service.delegate.PrintUserDataDelegate">
+      <bpmn:incoming>Flow_1xxvuha</bpmn:incoming>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -132,7 +142,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0hlqsz8">
       <bpmndi:BPMNShape id="Participant_07xbar8_di" bpmnElement="Participant_07xbar8" isHorizontal="true">
-        <dc:Bounds x="161" y="310" width="1419" height="530" />
+        <dc:Bounds x="161" y="310" width="1419" height="640" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0az8jqg" bpmnElement="printDataUserDelegate">
@@ -189,6 +199,13 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0fgslbt" bpmnElement="Event_1nz8vhe">
         <dc:Bounds x="972" y="462" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01kh5y9_di" bpmnElement="User_Info_Conversion">
+        <dc:Bounds x="820" y="810" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jvian5_di" bpmnElement="Activity_1utsqwx">
+        <dc:Bounds x="1080" y="810" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ogqmdf_di" bpmnElement="Flow_1ogqmdf">
         <di:waypoint x="1120" y="520" />
@@ -251,6 +268,16 @@
       <bpmndi:BPMNEdge id="Flow_0dbqucv_di" bpmnElement="Flow_0dbqucv">
         <di:waypoint x="1008" y="480" />
         <di:waypoint x="1070" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qjwp3o_di" bpmnElement="Flow_1qjwp3o">
+        <di:waypoint x="660" y="680" />
+        <di:waypoint x="740" y="680" />
+        <di:waypoint x="740" y="850" />
+        <di:waypoint x="820" y="850" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xxvuha_di" bpmnElement="Flow_1xxvuha">
+        <di:waypoint x="920" y="850" />
+        <di:waypoint x="1080" y="850" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1030" height="90" />
