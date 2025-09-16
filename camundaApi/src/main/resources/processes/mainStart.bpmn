@@ -44,7 +44,7 @@
           <camunda:connectorId>soap-http-connector</camunda:connectorId>
         </camunda:connector>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1k8e5e8</bpmn:incoming>
+      <bpmn:incoming>Flow_16onrkw</bpmn:incoming>
       <bpmn:outgoing>Flow_1ogqmdf</bpmn:outgoing>
       <bpmn:outgoing>Flow_0ww3l88</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -105,13 +105,7 @@
       <bpmn:incoming>Flow_0t92dta</bpmn:incoming>
       <bpmn:outgoing>Flow_1tbwuiv</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:intermediateCatchEvent id="Event_1t5i7gs">
-      <bpmn:incoming>Flow_16onrkw</bpmn:incoming>
-      <bpmn:outgoing>Flow_1k8e5e8</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1eyykpa" messageRef="Message_1u8rev1" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="Flow_16onrkw" sourceRef="Gateway_join0" targetRef="Event_1t5i7gs" />
-    <bpmn:sequenceFlow id="Flow_1k8e5e8" sourceRef="Event_1t5i7gs" targetRef="postingservice" />
+    <bpmn:sequenceFlow id="Flow_16onrkw" sourceRef="Gateway_join0" targetRef="postingservice" />
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -173,9 +167,6 @@
         <dc:Bounds x="770" y="650" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_079mn0x" bpmnElement="Event_1t5i7gs">
-        <dc:Bounds x="982" y="432" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ogqmdf_di" bpmnElement="Flow_1ogqmdf">
         <di:waypoint x="1120" y="520" />
         <di:waypoint x="1120" y="540" />
@@ -221,14 +212,6 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_16onrkw_di" bpmnElement="Flow_16onrkw">
         <di:waypoint x="925" y="480" />
-        <di:waypoint x="954" y="480" />
-        <di:waypoint x="954" y="450" />
-        <di:waypoint x="982" y="450" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1k8e5e8_di" bpmnElement="Flow_1k8e5e8">
-        <di:waypoint x="1018" y="450" />
-        <di:waypoint x="1044" y="450" />
-        <di:waypoint x="1044" y="480" />
         <di:waypoint x="1070" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
