@@ -10,20 +10,24 @@
         <pos:taxCode>${user_info.taxCode}</pos:taxCode>
         <pos:address>${user_info.address}</pos:address>
         <pos:city>${user_info.city}</pos:city>
-        <pos:zip>${user_info.zip}</pos:zip>
+        <pos:zip>${user_info.zipCode}</pos:zip>
         <pos:email>${user_info.email}</pos:email>
       </pos:user_info>
 
       <!-- Dati del posting -->
       <pos:posting>
-        <pos:posterFormat>${posting.posterFormat}</pos:posterFormat>
+        <pos:posterFormat>${format}</pos:posterFormat>
 
-        <!-- Iterazione su tutte le zone -->
-        <#list posting.zones as zone>
-          <pos:zone>
-            <pos:id>${zone.id}</pos:id>
-            <pos:city>${zone.city}</pos:city>
-          </pos:zone>
+        <#-- Converti la stringa JSON in mappa -->
+        <#assign selectedZonesMap = selectedZones?eval>
+
+        <#list selectedZonesMap?keys as cityName>
+          <#list selectedZonesMap[cityName] as zone>
+            <pos:zone>
+              <pos:id>${zone.id}</pos:id>
+              <pos:city>${zone.city}</pos:city>
+            </pos:zone>
+          </#list>
         </#list>
 
       </pos:posting>

@@ -73,7 +73,8 @@ public class SelectZonesDelegate implements JavaDelegate {
       System.out.println("JSON OPSS");
       e.printStackTrace();
     }
-    System.out.println(selectedZonesJson);
+
+    System.out.println("Selected Zones:");
     execution.setVariable("selectedZones", selectedZonesJson);
     execution.setVariable("totalPrice", totalPrice);
   }
