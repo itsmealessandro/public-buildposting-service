@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY posting-service.jar /app/posting-service.jar
 
-EXPOSE 9080
+EXPOSE 9090
 
 CMD ["java", "-jar", "posting-service.jar"]
