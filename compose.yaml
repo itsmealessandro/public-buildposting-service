@@ -1,0 +1,53 @@
+services:
+
+  camunda-api:
+    container_name: camundaAPICont
+    hostname: camundaAPIHost
+    build: ./camundaEngine/
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./persistent_data:/persistent_data
+    networks:
+      - camundaNet
+
+  posting-service:
+    container_name: postingServiceCont
+    hostname: postingServiceHost
+    build: ./postingService/
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./persistent_data:/persistent_data
+    networks:
+      - camundaNet
+
+  user-service:
+    container_name: userServiceCont
+    hostname: userServiceHost
+    build: ./userService/
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./persistent_data:/persistent_data
+    networks:
+      - camundaNet
+
+  zones-service:
+    container_name: zonesServiceCont
+    hostname: zonesServiceHost
+    build: ./zonesService/
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./persistent_data:/persistent_data
+    networks:
+      - camundaNet
+
+networks:
+  camundaNet:
+    driver: bridge
+
+volumes:
+  persistent_data:
+
