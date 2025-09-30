@@ -25,21 +25,18 @@
     <bpmn:sequenceFlow id="Flow_1355dzx" sourceRef="Gateway_parallel0" targetRef="Getzoneslist" />
     <bpmn:sequenceFlow id="Flow_1udpmuu" sourceRef="Gateway_parallel0" targetRef="userDataID" />
     <bpmn:sequenceFlow id="Flow_1lwnvwi" sourceRef="requestReceivedID" targetRef="Gateway_parallel0" />
-    <bpmn:serviceTask id="Activity_1s4owrj" name="PrintData" camunda:class="com.example.service.delegate.PrintData">
+    <bpmn:serviceTask id="Activity_1s4owrj" name="PrintPostingResponse" camunda:class="com.example.service.delegate.PrintResponseDelegate">
       <bpmn:incoming>Flow_1ogqmdf</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="postingservice" name="posting service">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/zones/${format}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/postingservice</camunda:inputParameter>
             <camunda:inputParameter name="payload">
               <camunda:script scriptFormat="freemarker" resource="xmlFreemarker/availabilityRequest.ftl" />
             </camunda:inputParameter>
-            <camunda:outputParameter name="requestId">${XML(response).childElement("Body").childElement("http://disim.univaq.it/services/postingservice",
-              "availabilityResponse").childElement("requestId").textContent()}</camunda:outputParameter>
-            <camunda:outputParameter name="availability">${XML(response).childElement("Body").childElement("http://disim.univaq.it/services/postingservice",
-              "availabilityResponse").childElement("available").textContent()}</camunda:outputParameter>
+            <camunda:outputParameter name="availabilityResponse">${response}</camunda:outputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>soap-http-connector</camunda:connectorId>
         </camunda:connector>

@@ -1,10 +1,9 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-  xmlns:pos="http://example.com/postings">
-  <soapenv:Header />
+  xmlns:pos="http://disim.univaq.it/services/postingservice">
+  <soapenv:Header/>
   <soapenv:Body>
     <pos:availabilityRequest>
-      <!-- Dati dell'user_info -->
-      <pos:user_info>
+      <pos:applicant>
         <pos:name>${user_info.name}</pos:name>
         <pos:surname>${user_info.surname}</pos:surname>
         <pos:taxCode>${user_info.taxCode}</pos:taxCode>
@@ -12,15 +11,10 @@
         <pos:city>${user_info.city}</pos:city>
         <pos:zip>${user_info.zipCode}</pos:zip>
         <pos:email>${user_info.email}</pos:email>
-      </pos:user_info>
-
-      <!-- Dati del posting -->
+      </pos:applicant>
       <pos:posting>
         <pos:posterFormat>${format}</pos:posterFormat>
-
-        <#-- Converti la stringa JSON in mappa -->
         <#assign selectedZonesMap = selectedZones?eval>
-
         <#list selectedZonesMap?keys as cityName>
           <#list selectedZonesMap[cityName] as zone>
             <pos:zone>
@@ -29,7 +23,6 @@
             </pos:zone>
           </#list>
         </#list>
-
       </pos:posting>
     </pos:availabilityRequest>
   </soapenv:Body>
