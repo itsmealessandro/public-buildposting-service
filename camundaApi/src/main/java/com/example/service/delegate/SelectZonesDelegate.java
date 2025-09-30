@@ -65,8 +65,6 @@ public class SelectZonesDelegate implements JavaDelegate {
         .sum();
 
     System.out.println("Selection Result:");
-    System.out.println(selectedZones);
-    System.out.println(selectedZones);
     ObjectMapper mapperZone = new ObjectMapper();
     String selectedZonesJson = "";
     try {
@@ -75,6 +73,8 @@ public class SelectZonesDelegate implements JavaDelegate {
       System.out.println("JSON OPSS");
       e.printStackTrace();
     }
+
+    System.out.println("Selected Zones:");
     execution.setVariable("selectedZones", selectedZonesJson);
     execution.setVariable("totalPrice", totalPrice);
   }

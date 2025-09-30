@@ -19,47 +19,41 @@
   </bpmn:collaboration>
   <bpmn:process id="mainProcessID" name="mainProcess" isExecutable="true" camunda:historyTimeToLive="1">
     <bpmn:extensionElements />
-    <bpmn:parallelGateway id="Gateway_parallel0" name="gateway">
-      <bpmn:incoming>Flow_1lwnvwi</bpmn:incoming>
-      <bpmn:outgoing>Flow_1udpmuu</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1355dzx</bpmn:outgoing>
-    </bpmn:parallelGateway>
-    <bpmn:startEvent id="requestReceivedID" name="requestReceived">
-      <bpmn:outgoing>Flow_1lwnvwi</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1solnja" messageRef="Message_1u8rev1" />
-    </bpmn:startEvent>
-    <bpmn:parallelGateway id="Gateway_join0">
-      <bpmn:incoming>Flow_131otxq</bpmn:incoming>
-      <bpmn:incoming>Flow_10zreee</bpmn:incoming>
-      <bpmn:outgoing>Flow_19wyw47</bpmn:outgoing>
-      <bpmn:outgoing>Flow_1f9pq9i</bpmn:outgoing>
-    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_1ogqmdf" sourceRef="postingservice" targetRef="Activity_1s4owrj" />
+    <bpmn:sequenceFlow id="Flow_0r6igyt" sourceRef="Getzoneslist" targetRef="selectzones" />
     <bpmn:sequenceFlow id="Flow_131otxq" sourceRef="selectzones" targetRef="Gateway_join0" />
-    <bpmn:serviceTask id="printDataUserDelegate" name="PrintData" camunda:class="com.example.service.delegate.PrintData">
-      <bpmn:incoming>Flow_1680t7t</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_1355dzx" sourceRef="Gateway_parallel0" targetRef="Getzoneslist" />
+    <bpmn:sequenceFlow id="Flow_1udpmuu" sourceRef="Gateway_parallel0" targetRef="userDataID" />
+    <bpmn:sequenceFlow id="Flow_1lwnvwi" sourceRef="requestReceivedID" targetRef="Gateway_parallel0" />
+    <bpmn:serviceTask id="Activity_1s4owrj" name="PrintPostingResponse" camunda:class="com.example.service.delegate.PrintResponseDelegate">
+      <bpmn:incoming>Flow_1ogqmdf</bpmn:incoming>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="userDataID" name="Retrieve user data info">
+    <bpmn:serviceTask id="postingservice" name="posting service">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9080/user/${username}</camunda:inputParameter>
-            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/postingservice</camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="freemarker" resource="xmlFreemarker/availabilityRequest.ftl" />
+            </camunda:inputParameter>
+            <camunda:outputParameter name="availabilityResponse">${response}</camunda:outputParameter>
           </camunda:inputOutput>
-          <camunda:connectorId>http-connector</camunda:connectorId>
+          <camunda:connectorId>soap-http-connector</camunda:connectorId>
         </camunda:connector>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1udpmuu</bpmn:incoming>
-      <bpmn:outgoing>Flow_1680t7t</bpmn:outgoing>
-      <bpmn:outgoing>Flow_10zreee</bpmn:outgoing>
+      <bpmn:incoming>Flow_16onrkw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ogqmdf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ww3l88</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1680t7t" sourceRef="userDataID" targetRef="printDataUserDelegate" />
-    <bpmn:sequenceFlow id="Flow_10zreee" sourceRef="userDataID" targetRef="Gateway_join0" />
-    <bpmn:sequenceFlow id="Flow_1udpmuu" sourceRef="Gateway_parallel0" targetRef="userDataID" />
+    <bpmn:serviceTask id="selectzones" name="select zones" camunda:class="com.example.service.delegate.SelectZonesDelegate">
+      <bpmn:incoming>Flow_0r6igyt</bpmn:incoming>
+      <bpmn:outgoing>Flow_131otxq</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:serviceTask id="Getzoneslist" name="Get zones list">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9090/zones/a</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:9090/zones/${format}</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
             <camunda:outputParameter name="zones">${response}</camunda:outputParameter>
           </camunda:inputOutput>
@@ -68,42 +62,47 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1355dzx</bpmn:incoming>
       <bpmn:outgoing>Flow_0r6igyt</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0jskf4k</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0r6igyt" sourceRef="Getzoneslist" targetRef="selectzones" />
-    <bpmn:sequenceFlow id="Flow_1355dzx" sourceRef="Gateway_parallel0" targetRef="Getzoneslist" />
-    <bpmn:serviceTask id="Activity_19mhmax" name="PrintData" camunda:class="com.example.service.delegate.PrintData">
-      <bpmn:incoming>Flow_0jskf4k</bpmn:incoming>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0jskf4k" sourceRef="Getzoneslist" targetRef="Activity_19mhmax" />
-    <bpmn:sequenceFlow id="Flow_1lwnvwi" sourceRef="requestReceivedID" targetRef="Gateway_parallel0" />
-    <bpmn:serviceTask id="selectzones" name="select zones" camunda:class="com.example.service.delegate.SelectZonesDelegate">
-      <bpmn:incoming>Flow_0r6igyt</bpmn:incoming>
-      <bpmn:outgoing>Flow_131otxq</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_19wyw47" sourceRef="Gateway_join0" targetRef="Activity_13bm836" />
-    <bpmn:serviceTask id="Activity_13bm836" name="PrintData" camunda:class="com.example.service.delegate.PrintData">
-      <bpmn:incoming>Flow_19wyw47</bpmn:incoming>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1f9pq9i" sourceRef="Gateway_join0" targetRef="Event_0g9hzsk" />
-    <bpmn:intermediateCatchEvent id="Event_0g9hzsk">
-      <bpmn:incoming>Flow_1f9pq9i</bpmn:incoming>
-      <bpmn:outgoing>Flow_0thyclp</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1degu5x" messageRef="Message_1u8rev1" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="postingservice" name="posting service">
+    <bpmn:serviceTask id="userDataID" name="Retrieve user data info">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9090/zones/b</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:9080/user/${username}</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:outputParameter name="user_info">${response}</camunda:outputParameter>
           </camunda:inputOutput>
-          <camunda:connectorId>soap-http-connector</camunda:connectorId>
+          <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0thyclp</bpmn:incoming>
+      <bpmn:incoming>Flow_1udpmuu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0t92dta</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0thyclp" sourceRef="Event_0g9hzsk" targetRef="postingservice" />
+    <bpmn:parallelGateway id="Gateway_join0">
+      <bpmn:incoming>Flow_131otxq</bpmn:incoming>
+      <bpmn:incoming>Flow_1tbwuiv</bpmn:incoming>
+      <bpmn:outgoing>Flow_16onrkw</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:startEvent id="requestReceivedID" name="requestReceived">
+      <bpmn:outgoing>Flow_1lwnvwi</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1solnja" messageRef="Message_1u8rev1" />
+    </bpmn:startEvent>
+    <bpmn:parallelGateway id="Gateway_parallel0" name="gateway">
+      <bpmn:incoming>Flow_1lwnvwi</bpmn:incoming>
+      <bpmn:outgoing>Flow_1udpmuu</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1355dzx</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:intermediateCatchEvent id="Event_0g9hzsk">
+      <bpmn:incoming>Flow_0ww3l88</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1degu5x" messageRef="Message_1u8rev1" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_0ww3l88" sourceRef="postingservice" targetRef="Event_0g9hzsk" />
+    <bpmn:sequenceFlow id="Flow_0t92dta" sourceRef="userDataID" targetRef="Activity_0mjrp8p" />
+    <bpmn:sequenceFlow id="Flow_1tbwuiv" sourceRef="Activity_0mjrp8p" targetRef="Gateway_join0" />
+    <bpmn:serviceTask id="Activity_0mjrp8p" name="UserDataConversion" camunda:class="com.example.service.delegate.UserDataConversionDelegate">
+      <bpmn:incoming>Flow_0t92dta</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tbwuiv</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_16onrkw" sourceRef="Gateway_join0" targetRef="postingservice" />
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -118,13 +117,32 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0hlqsz8">
       <bpmndi:BPMNShape id="Participant_07xbar8_di" bpmnElement="Participant_07xbar8" isHorizontal="true">
-        <dc:Bounds x="161" y="310" width="1119" height="530" />
+        <dc:Bounds x="161" y="310" width="1419" height="530" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_00bluz9_di" bpmnElement="Gateway_parallel0">
-        <dc:Bounds x="475" y="545" width="50" height="50" />
+      <bpmndi:BPMNShape id="BPMNShape_0ktw8mt" bpmnElement="Activity_1s4owrj">
+        <dc:Bounds x="1150" y="560" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1e0lexm" bpmnElement="postingservice">
+        <dc:Bounds x="1070" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_157nfh2_di" bpmnElement="selectzones">
+        <dc:Bounds x="710" y="440" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_183tac2" bpmnElement="Getzoneslist">
+        <dc:Bounds x="560" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06j4v6c_di" bpmnElement="userDataID">
+        <dc:Bounds x="560" y="640" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0acvefa_di" bpmnElement="Gateway_join0">
+        <dc:Bounds x="875" y="455" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="535" y="563" width="42" height="14" />
+          <dc:Bounds x="610" y="110" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0lp93rq_di" bpmnElement="requestReceivedID">
@@ -133,92 +151,64 @@
           <dc:Bounds x="189" y="595" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0acvefa_di" bpmnElement="Gateway_join0">
-        <dc:Bounds x="875" y="455" width="50" height="50" />
+      <bpmndi:BPMNShape id="Gateway_00bluz9_di" bpmnElement="Gateway_parallel0">
+        <dc:Bounds x="475" y="545" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="610" y="110" width="21" height="14" />
+          <dc:Bounds x="535" y="563" width="42" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0az8jqg" bpmnElement="printDataUserDelegate">
-        <dc:Bounds x="820" y="690" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_06j4v6c_di" bpmnElement="userDataID">
-        <dc:Bounds x="560" y="640" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_183tac2" bpmnElement="Getzoneslist">
-        <dc:Bounds x="560" y="440" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0l4uhbe" bpmnElement="Activity_19mhmax">
-        <dc:Bounds x="670" y="540" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_157nfh2_di" bpmnElement="selectzones">
-        <dc:Bounds x="710" y="440" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1rlwjq6" bpmnElement="Activity_13bm836">
-        <dc:Bounds x="960" y="540" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1uxzfia_di" bpmnElement="Event_0g9hzsk">
-        <dc:Bounds x="962" y="462" width="36" height="36" />
+        <dc:Bounds x="1232" y="462" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1e0lexm" bpmnElement="postingservice">
-        <dc:Bounds x="1070" y="440" width="100" height="80" />
+      <bpmndi:BPMNShape id="BPMNShape_1odhx5d" bpmnElement="Activity_0mjrp8p">
+        <dc:Bounds x="770" y="650" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_131otxq_di" bpmnElement="Flow_131otxq">
-        <di:waypoint x="810" y="480" />
-        <di:waypoint x="875" y="480" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1680t7t_di" bpmnElement="Flow_1680t7t">
-        <di:waypoint x="660" y="680" />
-        <di:waypoint x="740" y="680" />
-        <di:waypoint x="740" y="730" />
-        <di:waypoint x="820" y="730" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10zreee_di" bpmnElement="Flow_10zreee">
-        <di:waypoint x="660" y="680" />
-        <di:waypoint x="900" y="680" />
-        <di:waypoint x="900" y="505" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1udpmuu_di" bpmnElement="Flow_1udpmuu">
-        <di:waypoint x="500" y="595" />
-        <di:waypoint x="500" y="650" />
-        <di:waypoint x="560" y="650" />
+      <bpmndi:BPMNEdge id="Flow_1ogqmdf_di" bpmnElement="Flow_1ogqmdf">
+        <di:waypoint x="1120" y="520" />
+        <di:waypoint x="1120" y="540" />
+        <di:waypoint x="1200" y="540" />
+        <di:waypoint x="1200" y="560" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0r6igyt_di" bpmnElement="Flow_0r6igyt">
         <di:waypoint x="660" y="480" />
         <di:waypoint x="710" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_131otxq_di" bpmnElement="Flow_131otxq">
+        <di:waypoint x="810" y="480" />
+        <di:waypoint x="875" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1355dzx_di" bpmnElement="Flow_1355dzx">
         <di:waypoint x="500" y="545" />
         <di:waypoint x="500" y="480" />
         <di:waypoint x="560" y="480" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0jskf4k_di" bpmnElement="Flow_0jskf4k">
-        <di:waypoint x="610" y="520" />
-        <di:waypoint x="610" y="530" />
-        <di:waypoint x="680" y="530" />
-        <di:waypoint x="680" y="540" />
+      <bpmndi:BPMNEdge id="Flow_1udpmuu_di" bpmnElement="Flow_1udpmuu">
+        <di:waypoint x="500" y="595" />
+        <di:waypoint x="500" y="650" />
+        <di:waypoint x="560" y="650" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1lwnvwi_di" bpmnElement="Flow_1lwnvwi">
         <di:waypoint x="248" y="570" />
         <di:waypoint x="475" y="570" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_19wyw47_di" bpmnElement="Flow_19wyw47">
-        <di:waypoint x="906" y="499" />
-        <di:waypoint x="930" y="580" />
-        <di:waypoint x="960" y="580" />
+      <bpmndi:BPMNEdge id="Flow_0ww3l88_di" bpmnElement="Flow_0ww3l88">
+        <di:waypoint x="1170" y="480" />
+        <di:waypoint x="1232" y="480" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1f9pq9i_di" bpmnElement="Flow_1f9pq9i">
+      <bpmndi:BPMNEdge id="Flow_0t92dta_di" bpmnElement="Flow_0t92dta">
+        <di:waypoint x="660" y="680" />
+        <di:waypoint x="720" y="680" />
+        <di:waypoint x="720" y="720" />
+        <di:waypoint x="770" y="720" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tbwuiv_di" bpmnElement="Flow_1tbwuiv">
+        <di:waypoint x="870" y="690" />
+        <di:waypoint x="900" y="690" />
+        <di:waypoint x="900" y="505" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16onrkw_di" bpmnElement="Flow_16onrkw">
         <di:waypoint x="925" y="480" />
-        <di:waypoint x="962" y="480" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0thyclp_di" bpmnElement="Flow_0thyclp">
-        <di:waypoint x="998" y="480" />
         <di:waypoint x="1070" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
