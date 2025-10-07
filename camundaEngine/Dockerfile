@@ -1,19 +1,19 @@
-FROM openjdk:8-jdk-alpine
+FROM maven:3-jdk-8
 
 WORKDIR /app
-
-RUN apk add --no-cache maven
 
 # Copia solo i file Maven necessari per la cache delle dipendenze
 COPY camundaApi/pom.xml /app/camundaApi/pom.xml
 
 WORKDIR /app/camundaApi
 
-RUN mvn dependency:go-offline
+RUN mvn verify
 
 # Ora copia tutto il resto del progetto
 COPY . /app
 
 EXPOSE 8080
 
-CMD ["mvn", "spring-boot:run"]
+RUN chmod +x /app/entrypoint.sh 
+
+CMD ["/app/entrypoint.sh"]

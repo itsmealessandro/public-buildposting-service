@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.univaq.disim.bpd</groupId>
   <artifactId>camundaEngineAPI</artifactId>
-  <version>1.0.0</version>
+  <version>0.0.1</version>
   <name>camundaengineapp1</name>
 
   <properties>
@@ -55,10 +55,13 @@
     </dependency>
 
 
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>2.4.240</version>
+    <scope>runtime</scope>
+</dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
