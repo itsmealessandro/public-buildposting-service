@@ -51,14 +51,9 @@ public class BookingController {
     variables.put("maxPrices", request.getMaxPrices());
     variables.put("algorithm", request.getAlgorithm());
 
-    // Avvio processo
+    // Avvio processo ----------------------------------------------------------------------------------------------------
     ProcessInstance instance = runtimeService.startProcessInstanceByMessage("client_request", variables);
 
-    // alternativa con businessKey
-    // ProcessInstance instance =
-    // runtimeService.startProcessInstanceByMessage(messageName, businessKey,
-    // processVariables)
-    //test comment
 
     System.out.println("########################################################");
     System.out.println("########################################################");
@@ -70,6 +65,11 @@ public class BookingController {
     String requestId = (String) runtimeService.getVariable(instance.getId(), "requestId");
     Object selectedZones = runtimeService.getVariable(instance.getId(), "selectedZones");
     Double totalPrice = (Double) runtimeService.getVariable(instance.getId(), "totalPrice");
+
+    // debug
+    System.out.println(requestId);
+    System.out.println(selectedZones);
+    System.out.println(totalPrice);
 
     Map<String, Object> response = new HashMap<>();
     response.put("requestId", requestId);
@@ -87,7 +87,7 @@ public class BookingController {
     // .correlate();
 
     // Correlare il messaggio al processo in attesa
-    runtimeService.createMessageCorrelation("client_request")
+    runtimeService.createMessageCorrelation(request.getRequestId())
         .correlate();
 
     return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));
