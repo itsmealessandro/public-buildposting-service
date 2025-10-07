@@ -16,18 +16,10 @@ camunda:
   bpm:
     database:
       schema-update: true
-    auto-deployment-enabled: true
+    auto-deployment-enabled: false
     filter:
       create: All tasks
-    webapp:
-      enabled: true
     admin-user:
       id: demo
       password: demo
       firstName: Demo
-    xml:
-      enable-safe-xml: false
-    # ADD THESE TWO LINES TO DISABLE DTD PROCESSING
-    parser:
-      process-validation-external-entity-resolution-disabled: true
-      process-validation-dtd-validation-disabled: true
