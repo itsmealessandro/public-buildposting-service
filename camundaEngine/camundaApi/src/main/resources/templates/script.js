@@ -40,19 +40,76 @@ async function submitBooking(event) {
   try {
     const response = await fetch('/api/booking/request', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody)
     });
 
-    if (response.ok) {
-      alert("Booking request sent successfully!");
-    } else {
+    if (!response.ok) {
       const text = await response.text();
       alert("Error: " + response.status + "\n" + text);
+      return;
     }
+
+    const data = await response.json();
+
+    // Mostra il blocco con le informazioni ricevute
+    document.getElementById("selected-zones").textContent = Array.isArray(data.selectedZones)
+      ? data.selectedZones.join(", ")
+      : data.selectedZones;
+
+    document.getElementById("total-price").textContent = data.totalPrice;
+    document.getElementById("booking-response").classList.remove("hidden");
+
+    // ✅ Salva dati necessari per la decisione
+    localStorage.setItem("businessKey", data.businessKey);
+    localStorage.setItem("requestId", data.requestId);
+
   } catch (err) {
     alert("Request failed: " + err);
   }
+}
+
+// ✅ funzione comune per inviare la decisione
+async function sendDecision(decision) {
+  const businessKey = localStorage.getItem("businessKey");
+  const requestId = localStorage.getItem("requestId");
+
+  if (!businessKey || !requestId) {
+    alert("Missing booking information.");
+    return;
+  }
+
+  const decisionRequest = {
+    requestId: requestId,
+    decision: decision,
+    businessKey: businessKey
+  };
+
+  try {
+    const response = await fetch('/api/booking/decision', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(decisionRequest)
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      alert(`Decision '${decision}' sent successfully!`);
+      document.getElementById("booking-response").classList.add("hidden");
+    } else {
+      const text = await response.text();
+      alert("Error sending decision: " + response.status + "\n" + text);
+    }
+  } catch (err) {
+    alert("Failed to send decision: " + err);
+  }
+}
+
+// ✅ Gestione pulsanti
+function confirmBooking() {
+  sendDecision("confirm");
+}
+
+function cancelBooking() {
+  sendDecision("cancel");
 }

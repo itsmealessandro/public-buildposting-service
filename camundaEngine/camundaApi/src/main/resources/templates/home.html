@@ -58,6 +58,18 @@
     </div>
   </form>
 
+  <!-- 🟩 RISPOSTA SERVER -->
+  <div id="booking-response" class="hidden">
+    <h2>Booking Summary</h2>
+    <p><strong>Selected Zones:</strong> <span id="selected-zones"></span></p>
+    <p><strong>Total Price:</strong> €<span id="total-price"></span></p>
+
+    <div class="response-buttons">
+      <button type="button" id="confirm-btn" onclick="confirmBooking()">Confirm</button>
+      <button type="button" id="cancel-btn" onclick="cancelBooking()">Cancel</button>
+    </div>
+  </div>
+
 </body>
 
 </html>
