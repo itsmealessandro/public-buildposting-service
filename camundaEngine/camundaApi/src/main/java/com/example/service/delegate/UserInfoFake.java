@@ -4,7 +4,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import com.example.model.UserInfo;
-
+// just a test class to simulate a user info retrieval from a database
 public class UserInfoFake implements JavaDelegate {
 
   public void execute(DelegateExecution execution) {
