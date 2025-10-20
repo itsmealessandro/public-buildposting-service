@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -33,7 +34,6 @@ public class BookingController {
   public ResponseEntity<?> startBooking(@RequestBody BookingRequest request) {
     System.out.println("########################################################");
     System.out.println("########################################################");
-    System.out.println("REQUEST RECEIVED");
     System.out.println("REQUEST RECEIVED:");
     System.out.println("Username: " + request.getUsername());
     System.out.println("Cities: " + request.getCities());
@@ -51,9 +51,12 @@ public class BookingController {
     variables.put("maxPrices", request.getMaxPrices());
     variables.put("algorithm", request.getAlgorithm());
 
-    // Avvio processo ----------------------------------------------------------------------------------------------------
-    ProcessInstance instance = runtimeService.startProcessInstanceByMessage("client_request", variables);
-
+    // praticamente impossibile generare collisioni
+    String businessKeyUnique = UUID.randomUUID().toString();
+    // Avvio processo
+    // ----------------------------------------------------------------------------------------------------
+    ProcessInstance instance = runtimeService.startProcessInstanceByMessage("client_request", businessKeyUnique,
+        variables);
 
     System.out.println("########################################################");
     System.out.println("########################################################");
@@ -66,25 +69,23 @@ public class BookingController {
     Object selectedZones = runtimeService.getVariable(instance.getId(), "selectedZones");
     Double totalPrice = (Double) runtimeService.getVariable(instance.getId(), "totalPrice");
 
-    // debug
+    System.out.println("Response Format and Data:");
     System.out.println(requestId);
     System.out.println(selectedZones);
     System.out.println(totalPrice);
+    System.out.println(businessKeyUnique);
 
     Map<String, Object> response = new HashMap<>();
     response.put("requestId", requestId);
     response.put("selectedZones", selectedZones);
     response.put("totalPrice", totalPrice);
+    response.put("businessKey", businessKeyUnique); // il client dovrà ritornare questo per riprendere il processo
 
     return ResponseEntity.ok(response);
   }
 
   @PostMapping("/api/booking/decision")
   public ResponseEntity<DecisionResponse> handleDecision(@RequestBody DecisionRequest request) {
-    // runtimeService.createMessageCorrelation("userDecision")
-    // .processInstanceVariableEquals("requestId", request.getRequestId())
-    // .setVariable("decision", request.getDecision())
-    // .correlate();
 
     // Correlare il messaggio al processo in attesa
     runtimeService.createMessageCorrelation(request.getRequestId())
