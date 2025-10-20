@@ -106,6 +106,10 @@ public class BookingController {
         MESSAGE_NAME_RESUME,
         request.getBusinessKey(),
         variables);
+
+    System.out.println("###################################");
+    System.out.println("PROCESS ENDED:");
+    System.out.println("###################################");
     return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));
   }
 
