@@ -108,7 +108,7 @@ public class BookingController {
         variables);
 
     System.out.println("###################################");
-    System.out.println("PROCESS ENDED:");
+    System.out.println("Returning to client");
     System.out.println("###################################");
     return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));
   }

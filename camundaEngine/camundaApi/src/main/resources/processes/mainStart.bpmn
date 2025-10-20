@@ -162,8 +162,13 @@
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_0y3z0pu" name="PrintPostingResponse" camunda:class="com.example.service.delegate.ConfirmationResponseDelegate">
       <bpmn:incoming>Flow_0yu47mn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wif3e7</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0yu47mn" sourceRef="Activity_10aewq9" targetRef="Activity_0y3z0pu" />
+    <bpmn:sequenceFlow id="Flow_0wif3e7" sourceRef="Activity_0y3z0pu" targetRef="Activity_1hrhxt3" />
+    <bpmn:serviceTask id="Activity_1hrhxt3" name="Print Order" camunda:class="com.example.service.delegate.PrintOrderDelegate">
+      <bpmn:incoming>Flow_0wif3e7</bpmn:incoming>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
   <bpmn:process id="Process_132boto" isExecutable="false">
@@ -179,7 +184,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0hlqsz8">
       <bpmndi:BPMNShape id="Participant_07xbar8_di" bpmnElement="Participant_07xbar8" isHorizontal="true">
-        <dc:Bounds x="161" y="310" width="1669" height="530" />
+        <dc:Bounds x="161" y="310" width="1919" height="530" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_157nfh2_di" bpmnElement="selectzones">
@@ -240,6 +245,9 @@
       <bpmndi:BPMNShape id="BPMNShape_0axjp8g" bpmnElement="Activity_0y3z0pu">
         <dc:Bounds x="1560" y="450" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15lktg0_di" bpmnElement="Activity_1hrhxt3">
+        <dc:Bounds x="1720" y="450" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ogqmdf_di" bpmnElement="Flow_1ogqmdf">
         <di:waypoint x="1000" y="520" />
@@ -307,6 +315,10 @@
         <di:waypoint x="1530" y="390" />
         <di:waypoint x="1530" y="490" />
         <di:waypoint x="1560" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wif3e7_di" bpmnElement="Flow_0wif3e7">
+        <di:waypoint x="1660" y="490" />
+        <di:waypoint x="1720" y="490" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1030" height="90" />
