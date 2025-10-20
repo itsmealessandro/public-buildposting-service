@@ -16,6 +16,8 @@
     <bpmn:messageFlow id="Flow_0v3ykcq" sourceRef="Participant_0znlog7" targetRef="postingservice" />
     <bpmn:messageFlow id="Flow_0c4yk7e" sourceRef="Getzoneslist" targetRef="Participant_1gsuhvu" />
     <bpmn:messageFlow id="Flow_1oe3yei" sourceRef="Participant_1gsuhvu" targetRef="Getzoneslist" />
+    <bpmn:messageFlow id="Flow_0crg4tk" sourceRef="Activity_16bmipe" targetRef="Participant_0znlog7" />
+    <bpmn:messageFlow id="Flow_1r11g4i" sourceRef="Participant_0znlog7" targetRef="Activity_16bmipe" />
   </bpmn:collaboration>
   <bpmn:process id="mainProcessID" name="mainProcess" isExecutable="true" camunda:historyTimeToLive="1">
     <bpmn:extensionElements />
@@ -102,11 +104,28 @@
     <bpmn:intermediateCatchEvent id="Event_0g9hzsk">
       <bpmn:incoming>Flow_0r0zr7f</bpmn:incoming>
       <bpmn:outgoing>Flow_0df3avd</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0p0ep1n</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1degu5x" messageRef="Message_0lq75nr" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_0df3avd" sourceRef="Event_0g9hzsk" targetRef="Activity_160uo7o" />
     <bpmn:serviceTask id="Activity_160uo7o" name="TEST" camunda:class="com.example.service.delegate.PrintData">
       <bpmn:incoming>Flow_0df3avd</bpmn:incoming>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0p0ep1n" sourceRef="Event_0g9hzsk" targetRef="Activity_16bmipe" />
+    <bpmn:serviceTask id="Activity_16bmipe" name="posting service decision">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://posting-service:8888/postingservice</camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="freemarker" resource="xmlFreemarker/availabilityRequest.ftl" />
+            </camunda:inputParameter>
+            <camunda:outputParameter name="availabilityResponse">${response}</camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>soap-http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0p0ep1n</bpmn:incoming>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
@@ -171,7 +190,11 @@
         <dc:Bounds x="1192" y="582" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1d4wnkz_di" bpmnElement="Activity_160uo7o">
-        <dc:Bounds x="1320" y="560" width="100" height="80" />
+        <dc:Bounds x="1160" y="360" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_000dti1" bpmnElement="Activity_16bmipe">
+        <dc:Bounds x="1370" y="450" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ogqmdf_di" bpmnElement="Flow_1ogqmdf">
@@ -222,8 +245,14 @@
         <di:waypoint x="1192" y="600" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0df3avd_di" bpmnElement="Flow_0df3avd">
+        <di:waypoint x="1210" y="582" />
+        <di:waypoint x="1210" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p0ep1n_di" bpmnElement="Flow_0p0ep1n">
         <di:waypoint x="1228" y="600" />
-        <di:waypoint x="1320" y="600" />
+        <di:waypoint x="1254" y="600" />
+        <di:waypoint x="1254" y="490" />
+        <di:waypoint x="1370" y="490" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1030" height="90" />
@@ -257,8 +286,8 @@
         <di:waypoint x="630" y="720" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1dw54oo_di" bpmnElement="Flow_1dw54oo">
-        <di:waypoint x="1040" y="440" />
-        <di:waypoint x="1040" y="360" />
+        <di:waypoint x="1090" y="480" />
+        <di:waypoint x="1150" y="480" />
         <di:waypoint x="1120" y="360" />
         <di:waypoint x="1120" y="280" />
       </bpmndi:BPMNEdge>
@@ -278,6 +307,16 @@
       <bpmndi:BPMNEdge id="Flow_1oe3yei_di" bpmnElement="Flow_1oe3yei">
         <di:waypoint x="610" y="280" />
         <di:waypoint x="610" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0crg4tk_di" bpmnElement="Flow_0crg4tk">
+        <di:waypoint x="1390" y="450" />
+        <di:waypoint x="1330" y="370" />
+        <di:waypoint x="1330" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r11g4i_di" bpmnElement="Flow_1r11g4i">
+        <di:waypoint x="1360" y="280" />
+        <di:waypoint x="1360" y="365" />
+        <di:waypoint x="1420" y="450" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

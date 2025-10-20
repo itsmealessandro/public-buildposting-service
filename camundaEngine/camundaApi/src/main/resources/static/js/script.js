@@ -60,7 +60,7 @@ async function submitBooking(event) {
     document.getElementById("total-price").textContent = data.totalPrice;
     document.getElementById("booking-response").classList.remove("hidden");
 
-    // ✅ Salva dati necessari per la decisione
+    //  Salva dati necessari per la decisione
     localStorage.setItem("businessKey", data.businessKey);
     localStorage.setItem("requestId", data.requestId);
 
@@ -69,7 +69,7 @@ async function submitBooking(event) {
   }
 }
 
-// ✅ funzione comune per inviare la decisione
+//  funzione comune per inviare la decisione
 async function sendDecision(decision) {
   const businessKey = localStorage.getItem("businessKey");
   const requestId = localStorage.getItem("requestId");
@@ -107,9 +107,9 @@ async function sendDecision(decision) {
 
 // ✅ Gestione pulsanti
 function confirmBooking() {
-  sendDecision("confirm");
+  sendDecision("CONFIRM");
 }
 
 function cancelBooking() {
-  sendDecision("cancel");
+  sendDecision("CANCEL");
 }
