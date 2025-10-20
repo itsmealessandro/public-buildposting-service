@@ -1,5 +1,5 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:pos="http://example.com/postings">
+  xmlns:pos="http://disim.univaq.it/services/postingservice">
    <soapenv:Header/>
    <soapenv:Body>
       <pos:cancelRequest>
