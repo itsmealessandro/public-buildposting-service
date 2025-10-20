@@ -78,10 +78,6 @@
       <bpmn:outgoing>Flow_1tbwuiv</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_16onrkw" sourceRef="Gateway_join0" targetRef="postingservice" />
-    <bpmn:intermediateCatchEvent id="Event_0g9hzsk">
-      <bpmn:incoming>Flow_0r0zr7f</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1degu5x" messageRef="Message_1u8rev1" />
-    </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_0r0zr7f" sourceRef="Activity_1s4owrj" targetRef="Event_0g9hzsk" />
     <bpmn:serviceTask id="postingservice" name="posting service">
       <bpmn:extensionElements>
@@ -102,6 +98,15 @@
     <bpmn:serviceTask id="Activity_1s4owrj" name="PrintPostingResponse" camunda:class="com.example.service.delegate.AvailabilityResponseDelegate">
       <bpmn:incoming>Flow_1ogqmdf</bpmn:incoming>
       <bpmn:outgoing>Flow_0r0zr7f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="Event_0g9hzsk">
+      <bpmn:incoming>Flow_0r0zr7f</bpmn:incoming>
+      <bpmn:outgoing>Flow_0df3avd</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1degu5x" messageRef="Message_1u8rev1" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_0df3avd" sourceRef="Event_0g9hzsk" targetRef="Activity_160uo7o" />
+    <bpmn:serviceTask id="Activity_160uo7o" name="TEST" camunda:class="com.example.service.delegate.PrintData">
+      <bpmn:incoming>Flow_0df3avd</bpmn:incoming>
     </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:process id="Process_0d55huw" isExecutable="false" />
@@ -153,15 +158,19 @@
         <dc:Bounds x="770" y="650" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1uxzfia_di" bpmnElement="Event_0g9hzsk">
-        <dc:Bounds x="1322" y="582" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1e0lexm" bpmnElement="postingservice">
         <dc:Bounds x="990" y="440" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0ktw8mt" bpmnElement="Activity_1s4owrj">
         <dc:Bounds x="1000" y="560" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1uxzfia_di" bpmnElement="Event_0g9hzsk">
+        <dc:Bounds x="1192" y="582" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1d4wnkz_di" bpmnElement="Activity_160uo7o">
+        <dc:Bounds x="1320" y="560" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1ogqmdf_di" bpmnElement="Flow_1ogqmdf">
@@ -209,7 +218,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0r0zr7f_di" bpmnElement="Flow_0r0zr7f">
         <di:waypoint x="1100" y="600" />
-        <di:waypoint x="1322" y="600" />
+        <di:waypoint x="1192" y="600" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0df3avd_di" bpmnElement="Flow_0df3avd">
+        <di:waypoint x="1228" y="600" />
+        <di:waypoint x="1320" y="600" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0oaetem_di" bpmnElement="Participant_0oaetem" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="1030" height="90" />

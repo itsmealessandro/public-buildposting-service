@@ -31,8 +31,7 @@ public class DecisionRequest {
 
   @Override
   public String toString() {
-    return "DecisionRequest [getRequestId()=" + getRequestId() + ", getDecision()=" + getDecision()
-        + ", getBusinessKey()=" + getBusinessKey() + "]";
+    return "DecisionRequest [requestId=" + requestId + ", decision=" + decision + ", businessKey=" + businessKey + "]";
   }
 
 }
