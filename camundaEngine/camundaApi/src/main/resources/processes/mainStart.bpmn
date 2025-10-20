@@ -102,7 +102,7 @@
     <bpmn:intermediateCatchEvent id="Event_0g9hzsk">
       <bpmn:incoming>Flow_0r0zr7f</bpmn:incoming>
       <bpmn:outgoing>Flow_0df3avd</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1degu5x" messageRef="Message_1u8rev1" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1degu5x" messageRef="Message_0lq75nr" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_0df3avd" sourceRef="Event_0g9hzsk" targetRef="Activity_160uo7o" />
     <bpmn:serviceTask id="Activity_160uo7o" name="TEST" camunda:class="com.example.service.delegate.PrintData">
@@ -119,6 +119,7 @@
   <bpmn:process id="Process_04k4fp4" isExecutable="false">
     <bpmn:laneSet id="LaneSet_1bpf8og" />
   </bpmn:process>
+  <bpmn:message id="Message_0lq75nr" name="stop" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0hlqsz8">
       <bpmndi:BPMNShape id="Participant_07xbar8_di" bpmnElement="Participant_07xbar8" isHorizontal="true">

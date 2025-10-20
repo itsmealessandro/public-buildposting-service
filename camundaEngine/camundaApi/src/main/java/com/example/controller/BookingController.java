@@ -21,7 +21,8 @@ import com.example.model.DecisionResponse;
 public class BookingController {
 
   private final RuntimeService runtimeService;
-  private final String MESSAGE_NAME = "client_request";
+  private final String MESSAGE_NAME_START = "client_request";
+  private final String MESSAGE_NAME_RESUME = "stop";
 
   public BookingController(RuntimeService runtimeService) {
     this.runtimeService = runtimeService;
@@ -56,7 +57,7 @@ public class BookingController {
     String businessKeyUnique = UUID.randomUUID().toString();
     // Avvio processo
     // ----------------------------------------------------------------------------------------------------
-    ProcessInstance instance = runtimeService.startProcessInstanceByMessage(MESSAGE_NAME, businessKeyUnique,
+    ProcessInstance instance = runtimeService.startProcessInstanceByMessage(MESSAGE_NAME_START, businessKeyUnique,
         variables);
 
     System.out.println("########################################################");
@@ -97,7 +98,7 @@ public class BookingController {
     System.out.println(request.toString());
 
     // Correlare il messaggio al processo in attesa
-    runtimeService.correlateMessage(MESSAGE_NAME, request.getBusinessKey());
+    runtimeService.correlateMessage(MESSAGE_NAME_RESUME, request.getBusinessKey());
     return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));
   }
 
