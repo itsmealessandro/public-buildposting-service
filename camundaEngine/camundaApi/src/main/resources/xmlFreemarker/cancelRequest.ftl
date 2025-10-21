@@ -1,9 +1,9 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:pos="http://example.com/postings">
+  xmlns:pos="http://disim.univaq.it/services/postingservice">
    <soapenv:Header/>
    <soapenv:Body>
-      <pos:confirmationRequest>
+      <pos:cancelRequest>
          <pos:requestId>${requestId}</pos:requestId>
-      </pos:confirmationRequest>
+      </pos:cancelRequest>
    </soapenv:Body>
 </soapenv:Envelope>

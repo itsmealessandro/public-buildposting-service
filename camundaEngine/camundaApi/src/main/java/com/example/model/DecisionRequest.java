@@ -2,8 +2,16 @@ package com.example.model;
 
 public class DecisionRequest {
   private String requestId;
-  private String decision;
+  private Decision decision;
   private String businessKey;
+
+  public Decision getDecision() {
+    return decision;
+  }
+
+  public void setDecision(Decision decision) {
+    this.decision = decision;
+  }
 
   public String getRequestId() {
     return requestId;
@@ -11,14 +19,6 @@ public class DecisionRequest {
 
   public void setRequestId(String requestId) {
     this.requestId = requestId;
-  }
-
-  public String getDecision() {
-    return decision;
-  }
-
-  public void setDecision(String decision) {
-    this.decision = decision;
   }
 
   public String getBusinessKey() {

@@ -97,8 +97,19 @@ public class BookingController {
 
     System.out.println(request.toString());
 
+    // Inserimento variabili nel processo Camunda
+    Map<String, Object> variables = new HashMap<>();
+    variables.put("decision", request.getDecision());
+
     // Correlare il messaggio al processo in attesa
-    runtimeService.correlateMessage(MESSAGE_NAME_RESUME, request.getBusinessKey());
+    runtimeService.correlateMessage(
+        MESSAGE_NAME_RESUME,
+        request.getBusinessKey(),
+        variables);
+
+    System.out.println("###################################");
+    System.out.println("Returning to client");
+    System.out.println("###################################");
     return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));
   }
 
