@@ -166,7 +166,7 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0yu47mn" sourceRef="Activity_10aewq9" targetRef="Activity_0y3z0pu" />
     <bpmn:sequenceFlow id="Flow_0wif3e7" sourceRef="Activity_0y3z0pu" targetRef="Activity_1hrhxt3" />
-    <bpmn:serviceTask id="Activity_1hrhxt3" name="Print Order" camunda:class="com.example.service.delegate.PrintOrderDelegate">
+    <bpmn:serviceTask id="Activity_1hrhxt3" name="Print Order" camunda:class="com.example.service.delegate.SaveOrderInfoDelegate">
       <bpmn:incoming>Flow_0wif3e7</bpmn:incoming>
     </bpmn:serviceTask>
   </bpmn:process>
@@ -336,13 +336,21 @@
         <dc:Bounds x="1061" y="190" width="300" height="90" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1ou7615_di" bpmnElement="Association_1ou7615">
-        <di:waypoint x="1293" y="535" />
-        <di:waypoint x="1261" y="535" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1g2e37b_di" bpmnElement="TextAnnotation_1g2e37b">
+        <dc:Bounds x="1360" y="500" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0k0kctj_di" bpmnElement="TextAnnotation_0k0kctj">
+        <dc:Bounds x="1161" y="520" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1fxbb8e_di" bpmnElement="Association_1fxbb8e">
         <di:waypoint x="1375" y="390" />
         <di:waypoint x="1406" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1ou7615_di" bpmnElement="Association_1ou7615">
+        <di:waypoint x="1293" y="535" />
+        <di:waypoint x="1261" y="535" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0r55hbz_di" bpmnElement="Flow_0r55hbz">
         <di:waypoint x="230" y="170" />
@@ -402,14 +410,6 @@
         <di:waypoint x="1290" y="280" />
         <di:waypoint x="1290" y="360" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_0k0kctj_di" bpmnElement="TextAnnotation_0k0kctj">
-        <dc:Bounds x="1161" y="520" width="100" height="30" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1g2e37b_di" bpmnElement="TextAnnotation_1g2e37b">
-        <dc:Bounds x="1360" y="500" width="100" height="30" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
