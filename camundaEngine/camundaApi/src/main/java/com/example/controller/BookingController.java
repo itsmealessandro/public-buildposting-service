@@ -16,16 +16,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.example.model.BookingRequest;
 import com.example.model.DecisionRequest;
 import com.example.model.DecisionResponse;
+import org.camunda.bpm.engine.HistoryService;
+import org.camunda.bpm.engine.history.HistoricProcessInstance;
+import org.camunda.bpm.engine.history.HistoricVariableInstance;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class BookingController {
 
   private final RuntimeService runtimeService;
+  private final HistoryService historyService;
   private final String MESSAGE_NAME_START = "client_request";
   private final String MESSAGE_NAME_RESUME = "stop";
 
-  public BookingController(RuntimeService runtimeService) {
+  public BookingController(RuntimeService runtimeService, HistoryService historyService) {
     this.runtimeService = runtimeService;
+    this.historyService = historyService;
   }
 
   /*
@@ -107,10 +114,79 @@ public class BookingController {
         request.getBusinessKey(),
         variables);
 
+    // Attendere che il processo finisca (o recuperare variabili storiche)
+    // Poiché correlateMessage è sincrono per l'invio, il processo potrebbe impiegare
+    // qualche ms a finire.
+    // Facciamo un piccolo polling per recuperare le variabili finali.
+    String invoiceNumber = "";
+    Double amountDue = 0.0;
+    String status = request.getDecision().toString();
+
+    try {
+      Thread.sleep(500); // Attesa tecnica per permettere al processo di completare
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    // Recupera variabili dallo storico
+    List<HistoricVariableInstance> historicVariables = historyService.createHistoricVariableInstanceQuery()
+        .processInstanceId(
+            historyService.createHistoricProcessInstanceQuery()
+                .processInstanceBusinessKey(request.getBusinessKey())
+                .singleResult().getId())
+        .list();
+
+    for (HistoricVariableInstance var : historicVariables) {
+      if ("invoiceNumber".equals(var.getName()) && var.getValue() != null) {
+        invoiceNumber = var.getValue().toString();
+      }
+      if ("amountDue".equals(var.getName()) && var.getValue() != null) {
+        try {
+            amountDue = Double.valueOf(var.getValue().toString());
+        } catch (NumberFormatException e) {
+            amountDue = 0.0;
+        }
+      }
+    }
+
     System.out.println("###################################");
     System.out.println("Returning to client");
+    System.out.println("Invoice: " + invoiceNumber);
+    System.out.println("Amount: " + amountDue);
     System.out.println("###################################");
-    return ResponseEntity.ok(new DecisionResponse("Decision processed for request: " + request.getRequestId()));
+
+    return ResponseEntity.ok(new DecisionResponse(
+        "Decision processed for request: " + request.getRequestId(),
+        invoiceNumber,
+        amountDue,
+        status));
+  }
+
+  @GetMapping("/api/booking/history")
+  public ResponseEntity<List<Map<String, Object>>> getHistory() {
+      List<HistoricProcessInstance> historicInstances = historyService.createHistoricProcessInstanceQuery()
+              .orderByProcessInstanceStartTime().desc()
+              .list();
+
+      List<Map<String, Object>> historyList = new ArrayList<>();
+
+      for (HistoricProcessInstance instance : historicInstances) {
+          Map<String, Object> historyItem = new HashMap<>();
+          historyItem.put("businessKey", instance.getBusinessKey());
+          historyItem.put("startTime", instance.getStartTime());
+          historyItem.put("endTime", instance.getEndTime());
+
+          List<HistoricVariableInstance> vars = historyService.createHistoricVariableInstanceQuery()
+                  .processInstanceId(instance.getId())
+                  .list();
+
+          for (HistoricVariableInstance var : vars) {
+              historyItem.put(var.getName(), var.getValue());
+          }
+          historyList.add(historyItem);
+      }
+
+      return ResponseEntity.ok(historyList);
   }
 
   @GetMapping("/")
