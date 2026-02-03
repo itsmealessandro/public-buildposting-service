@@ -16,7 +16,7 @@ camunda:
   bpm:
     database:
       schema-update: true
-    auto-deployment-enabled: false
+    auto-deployment-enabled: true
     filter:
       create: All tasks
     admin-user:

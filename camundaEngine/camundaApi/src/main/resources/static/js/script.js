@@ -94,8 +94,20 @@ async function sendDecision(decision) {
 
     if (response.ok) {
       const result = await response.json();
-      alert(`Decision '${decision}' sent successfully!`);
+
+      let msg = `Decision '${decision}' processed.`;
+      if (result.invoiceNumber) {
+        msg += `\nInvoice: ${result.invoiceNumber}`;
+      }
+      if (result.amountDue !== undefined) {
+        msg += `\nAmount Due: €${result.amountDue}`;
+      }
+
+      alert(msg);
       document.getElementById("booking-response").classList.add("hidden");
+
+      // Refresh history
+      loadHistory();
     } else {
       const text = await response.text();
       alert("Error sending decision: " + response.status + "\n" + text);
@@ -113,3 +125,96 @@ function confirmBooking() {
 function cancelBooking() {
   sendDecision("CANCEL");
 }
+
+async function loadHistory() {
+  try {
+    const response = await fetch('/api/booking/history');
+    if (!response.ok) {
+      console.error("Failed to load history");
+      return;
+    }
+    const history = await response.json();
+    console.log("Loaded history items:", history.length);
+    const tbody = document.querySelector("#history-table tbody");
+    tbody.innerHTML = "";
+
+    if (history.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='7'>No history found.</td></tr>";
+      return;
+    }
+
+    history.forEach(item => {
+      const tr = document.createElement("tr");
+
+      const date = item.startTime ? new Date(item.startTime).toLocaleString() : "";
+      const username = item.username || "";
+      const requestId = item.requestId || "";
+      const decision = item.decision || "";
+      const invoice = item.invoiceNumber || "-";
+      const amount = item.amountDue ? "€" + item.amountDue : "-";
+
+      // Determine if cancelled
+      const isCancelled = decision === "CANCEL" || item.status === "CANCEL";
+      if (isCancelled) {
+        tr.classList.add("cancelled-row");
+      }
+
+      // Action button logic
+      let actionHtml = "";
+      if (!item.endTime && !decision) {
+        // Pending request
+        actionHtml = "Pending";
+      } else if (isCancelled) {
+        actionHtml = "Cancelled";
+      } else {
+        actionHtml = "Completed";
+      }
+
+      tr.innerHTML = `
+                <td>${date}</td>
+                <td>${username}</td>
+                <td>${requestId}</td>
+                <td>${decision}</td>
+                <td>${invoice}</td>
+                <td>${amount}</td>
+                <td>${actionHtml}</td>
+            `;
+      tbody.appendChild(tr);
+    });
+  } catch (e) {
+    console.error("Error loading history:", e);
+  }
+}
+
+async function cancelRequest(requestId, businessKey) {
+  if (!confirm("Are you sure you want to cancel this request?")) {
+    return;
+  }
+
+  const decisionRequest = {
+    requestId: requestId,
+    decision: "CANCEL",
+    businessKey: businessKey
+  };
+
+  try {
+    const response = await fetch('/api/booking/decision', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(decisionRequest)
+    });
+
+    if (response.ok) {
+      alert("Request cancelled successfully.");
+      loadHistory();
+    } else {
+      const text = await response.text();
+      alert("Error cancelling request: " + response.status + "\n" + text);
+    }
+  } catch (err) {
+    alert("Failed to cancel request: " + err);
+  }
+}
+
+// Load history on page load
+document.addEventListener("DOMContentLoaded", loadHistory);

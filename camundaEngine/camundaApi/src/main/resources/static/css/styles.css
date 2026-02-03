@@ -133,3 +133,32 @@ button[type="submit"]:hover {
 #cancel-btn:hover {
   background-color: #c0392b;
 }
+
+.cancelled-row {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Layout */
+.top-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.form-section,
+#booking-response {
+  flex: 1;
+}
+
+/* Ensure response box doesn't have huge margins when in flex container */
+#booking-response {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .top-container {
+    flex-direction: column;
+  }
+}

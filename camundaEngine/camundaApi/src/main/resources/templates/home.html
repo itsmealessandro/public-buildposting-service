@@ -5,69 +5,96 @@
   <meta charset="UTF-8">
   <title>Booking Home</title>
   <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <script th:src="@{/js/script.js}" defer></script>
+  <script th:src="@{/js/script.js?v=2}" defer></script>
 </head>
 
 <body>
   <h1>Booking Request</h1>
 
-  <form onsubmit="submitBooking(event)">
-    <div>
-      <label>Username:</label>
-      <select id="username" required>
-        <option value="">Select Username</option>
-        <option value="sarabianchi">sarabianchi</option>
-        <option value="mariorossi">mariorossi</option>
-      </select>
+  <div class="top-container">
+    <div class="form-section">
+      <form onsubmit="submitBooking(event)">
+        <div>
+          <label>Username:</label>
+          <select id="username" required>
+            <option value="">Select Username</option>
+            <option value="sarabianchi">sarabianchi</option>
+            <option value="mariorossi">mariorossi</option>
+          </select>
+        </div>
+
+        <div id="cities-container">
+          <div>
+            <select class="city" required>
+              <option value="">Select City</option>
+              <option value="L'Aquila">L'Aquila</option>
+              <option value="Rome">Rome</option>
+              <option value="Milan">Milan</option>
+            </select>
+            <input type="number" step="0.01" class="maxPrice" placeholder="Max Price" required>
+          </div>
+        </div>
+
+        <button type="button" onclick="addCityField()">Add Another City</button>
+
+        <div>
+          <label>Format:</label>
+          <select id="format" required>
+            <option value="">Select Format</option>
+            <option value="50x70">50x70</option>
+            <option value="70x100">70x100</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Algorithm:</label>
+          <select id="algorithm" required>
+            <option value="">Select Algorithm</option>
+            <option value="eco">eco</option>
+            <option value="greedy">greedy</option>
+          </select>
+        </div>
+
+        <div>
+          <button type="submit">Submit Booking</button>
+        </div>
+      </form>
     </div>
 
-    <div id="cities-container">
-      <div>
-        <select class="city" required>
-          <option value="">Select City</option>
-          <option value="L'Aquila">L'Aquila</option>
-          <option value="Rome">Rome</option>
-          <option value="Milan">Milan</option>
-        </select>
-        <input type="number" step="0.01" class="maxPrice" placeholder="Max Price" required>
+    <!-- 🟩 RISPOSTA SERVER -->
+    <div id="booking-response" class="hidden">
+      <h2>Booking Summary</h2>
+      <p><strong>Selected Zones:</strong> <span id="selected-zones"></span></p>
+      <p><strong>Total Price:</strong> €<span id="total-price"></span></p>
+
+      <div class="response-buttons">
+        <button type="button" id="confirm-btn" onclick="confirmBooking()">Confirm</button>
+        <button type="button" id="cancel-btn" onclick="cancelBooking()">Cancel</button>
       </div>
     </div>
+  </div>
 
-    <button type="button" onclick="addCityField()">Add Another City</button>
+  <hr>
 
-    <div>
-      <label>Format:</label>
-      <select id="format" required>
-        <option value="">Select Format</option>
-        <option value="50x70">50x70</option>
-        <option value="70x100">70x100</option>
-      </select>
-    </div>
+  <div id="history-section">
+    <h2>Booking History</h2>
 
-    <div>
-      <label>Algorithm:</label>
-      <select id="algorithm" required>
-        <option value="">Select Algorithm</option>
-        <option value="eco">eco</option>
-        <option value="greedy">greedy</option>
-      </select>
-    </div>
-
-    <div>
-      <button type="submit">Submit Booking</button>
-    </div>
-  </form>
-
-  <!-- 🟩 RISPOSTA SERVER -->
-  <div id="booking-response" class="hidden">
-    <h2>Booking Summary</h2>
-    <p><strong>Selected Zones:</strong> <span id="selected-zones"></span></p>
-    <p><strong>Total Price:</strong> €<span id="total-price"></span></p>
-
-    <div class="response-buttons">
-      <button type="button" id="confirm-btn" onclick="confirmBooking()">Confirm</button>
-      <button type="button" id="cancel-btn" onclick="cancelBooking()">Cancel</button>
-    </div>
+    <table border="1" id="history-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Username</th>
+          <th>Request ID</th>
+          <th>Decision</th>
+          <th>Invoice #</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be added here -->
+      </tbody>
+    </table>
   </div>
 
 </body>
